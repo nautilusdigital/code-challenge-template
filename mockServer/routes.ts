@@ -5,7 +5,7 @@ const routes = Router()
 routes.get('/healthcheck', (_: Request, res: Response) => {
     res.status(200)
     .json({
-        message: 'Server running'
+        message: 'Mock Server running'
     })
 })
 
@@ -26,7 +26,7 @@ routes.post('/v1/auth', (req: Request, res: Response) => {
 })
 
 routes.post('/v1/signup', (req: Request, res: Response) => {
-    res.status(204)
+    res.status(204).json()
 })
 
 export default routes
