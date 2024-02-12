@@ -36,7 +36,6 @@ export const useSideMenu = () => {
   //   if (notf?.status === 200) {
   //     setNotifications(notf.data);
   //     if (notf.data.filter((item: any) => item.read === 'true').length > 0) {
-  //       console.log('test');
   //       setNewNotification(true);
   //     }
   //   }

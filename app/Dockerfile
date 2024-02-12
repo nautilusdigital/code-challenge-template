@@ -5,8 +5,6 @@ COPY package.json package-lock.json ./
 
 ENV REACT_APP_BASE_URL=http://localhost:8080
 ENV REACT_APP_SESSION_COOKIE_NAME=userSession
-ENV REACT_APP_GOOGLE_MAP=AIzaSyC4yYDVgnlH_KRD5KAgmhLf0WMaOp4eHlE
-ENV REACT_APP_GOOGLE_PLACE=AIzaSyCNYvevadr3rjxj6BB4IHgwaxi2N32BAfs
 
 RUN npm install
 COPY . ./

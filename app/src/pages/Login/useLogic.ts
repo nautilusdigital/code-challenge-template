@@ -4,13 +4,17 @@ import { ENVIRONMENT } from '../../config/environment';
 import { validationLogin } from './validation';
 import { useFetch } from '../../hooks';
 import { useCacheContext } from '../../hooks/useCacheContext';
+import { formatYupError } from '../../utils/formatYupError';
+import { LOGIN } from './const';
 
 export const useLogin = () => {
+  const navigate = useNavigate();
+  const { hookCacheContextDispatcher } = useCacheContext();
+
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [renderError, setRenderError] = useState<boolean>(false);
-  const navigate = useNavigate();
-  const { hookCacheContextDispatcher } = useCacheContext();
+  const [errors, setErrors] = useState<Record<string, string>>({});
 
   const emailHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
@@ -24,7 +28,7 @@ export const useLogin = () => {
     try {
       await validationLogin({ email, password });
 
-      const auth = await useFetch({
+      const { status, data } = await useFetch({
         method: 'POST',
         path: '/auth',
         body: {
@@ -33,46 +37,62 @@ export const useLogin = () => {
         },
       });
 
-      if (auth?.status !== 200) {
+      if (status !== 200) {
+        if (status !== 400) setErrors({ ...errors, default: LOGIN.ERRORS.DEFAULT });
+        if (status === 400) setErrors({ ...errors, default: LOGIN.ERRORS.USER });
+
         setRenderError(true);
       } else {
         const date = new Date(new Date(Date.now() + 15 * 60 * 1000));
-        document.cookie = `${ENVIRONMENT.APP.SESSION_COOKIE_NAME}=${auth.data.tokens.accessToken}; expires=${date.toUTCString()} path=/; SameSite=none;secure`;
+        document.cookie = `${ENVIRONMENT.APP.SESSION_COOKIE_NAME}=${data.tokens.accessToken}; expires=${date.toUTCString()} path=/; SameSite=none;secure`;
 
         hookCacheContextDispatcher({
           type: 'updateUser',
-          data: { ...auth.data.user },
+          data: { ...data.user },
         });
 
         hookCacheContextDispatcher({
           type: 'updateToken',
-          data: { ...auth.data.tokens },
+          data: { ...data.tokens },
         });
 
         navigate('/', {
           replace: true,
         });
       }
-    } catch (e: any) {
+    } catch (error: any) {
+      if (error.inner) {
+        const formatedErrors = formatYupError(error.inner);
+        setErrors(formatedErrors);
+      }
       setRenderError(true);
     }
   };
 
-  const signupNavigateHandler = () => (navigate('/signup', {
-    replace: true,
-  }));
-
   useEffect(() => {
     setRenderError(false);
   }, [email, password]);
+
+  useEffect(() => {
+    const updateError = { ...errors };
+    delete updateError.email;
+    setErrors(updateError);
+  }, [email]);
+
+  useEffect(() => {
+    const updateError = { ...errors };
+    delete updateError.password;
+    setErrors(updateError);
+  }, [password]);
 
   return {
     email,
     emailHandler,
     password,
     passwordHandler,
-    renderError,
     handleLogin,
-    signupNavigateHandler,
+
+    renderError,
+    errors,
   };
 };

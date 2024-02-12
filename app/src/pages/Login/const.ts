@@ -22,5 +22,8 @@ export const LOGIN = {
   },
   ERRORS: {
     DEFAULT: 'Something went wrong. Please contact the support team',
+    USER: 'Invaild email or password',
+    EMAIL: 'Please enter a valid email address',
+    PASSWORD: 'Please enter a password',
   },
 };

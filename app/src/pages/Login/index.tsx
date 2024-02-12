@@ -10,11 +10,11 @@ export const Login = () => {
     <div className="w-full h-screen flex justify-center items-center">
       <div className="w-[470px] flex flex-col justify-center items-start">
         <h1 className="font-bold text-[32px] mb-[60px]">{LOGIN.TITLE}</h1>
-        {hook.renderError && (
+        {hook.errors.default && (
           <div
-            className='border-4 border-solid rounded-lg border-support-alert-50 bg-white-100 text-support-alert-50 p-4 mb-8'
+            className='border-2 border-solid rounded-lg border-support-alert-50 bg-white-100 text-support-alert-50 p-4 mb-8 w-full text-center'
           >
-            {LOGIN.ERRORS.DEFAULT}
+            {hook.errors.default}
           </div>
         )}
         <Input
@@ -24,9 +24,11 @@ export const Login = () => {
           value={hook.email}
           placeholder={LOGIN.INPUTS.EMAIL.PLACEHOLDER}
           onChange={(event) => hook.emailHandler(event)}
+          caption={hook.errors.email}
           additionalClasses={{
             inputWrapper: ['w-full'],
             input: ['w-full'],
+            caption: ['text-support-alert-50'],
           }}
         />
         <Input
@@ -36,11 +38,14 @@ export const Login = () => {
           value={hook.password}
           placeholder={LOGIN.INPUTS.PASSWORD.PLACEHOLDER}
           onChange={(event) => hook.passwordHandler(event)}
+          caption={hook.errors.password}
           additionalClasses={{
             wrapper: ['my-8'],
             inputWrapper: ['w-full'],
             input: ['w-full'],
+            caption: ['text-support-alert-50'],
           }}
+
         />
         <Button
           size='large'
