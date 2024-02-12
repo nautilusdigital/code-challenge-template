@@ -15,7 +15,7 @@ export const validationBasicInfo = async ({
     password: string().required(), // TODO: define password requirements
   });
 
-  return await signupBasicSchema.validate({
+  return signupBasicSchema.validate({
     email, password, firstName, lastName,
   }, { abortEarly: false });
 };
@@ -36,7 +36,7 @@ export const validationAddressInfo = async ({
 
   });
 
-  return await signupAddressSchema.validate({
+  return signupAddressSchema.validate({
     address, city, phoneNumber, postalCode, province, unitNumber,
   }, { abortEarly: false });
 };

@@ -43,7 +43,6 @@ export const useSignup = () => {
 
   const createUserHandler = async () => {
     try {
-      // eslint-disable-next-line react-hooks/rules-of-hooks
       const auth = await useFetch({
         method: 'POST',
         path: '/signup',

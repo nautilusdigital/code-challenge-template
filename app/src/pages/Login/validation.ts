@@ -7,5 +7,5 @@ export const validationLogin = async ({ email, password }: LoginValidationPropTy
     password: string().required(), // TODO: define password requirements
   });
 
-  return await loginSchema.validate({ email, password });
+  return loginSchema.validate({ email, password });
 };

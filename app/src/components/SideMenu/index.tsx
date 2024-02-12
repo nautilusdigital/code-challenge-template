@@ -105,7 +105,12 @@ export const SideMenu = () => {
             <p>
               {notification.text}
             </p>
-            {/* <p className={`${notification.read === 'false' ? 'text-primary-50' : 'text-grayscale-60'}`}>{moment(notification.createdAt).fromNow()}</p> */}
+            {/* <p
+            className={`${notification.read === 'false' ? 'text-primary-50' : 'text-grayscale-60'}`}
+            >
+            {moment(notification.createdAt).fromNow()}
+            </p>
+             */}
           </button>
         ))}
       </Modal>

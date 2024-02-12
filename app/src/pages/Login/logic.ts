@@ -24,7 +24,6 @@ export const useLogin = () => {
     try {
       await validationLogin({ email, password });
 
-      // eslint-disable-next-line react-hooks/rules-of-hooks
       const auth = await useFetch({
         method: 'POST',
         path: '/auth',

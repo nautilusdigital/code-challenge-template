@@ -7,7 +7,7 @@ export const AppWrapper = ({ children }: AppWrapperPropTypes) => {
 
   return (
     <main className="w-full h-screen flex">
-      <SideMenu/>
+      <SideMenu />
       <div className="w-full p-8 relative">
         {children}
       </div>

@@ -25,7 +25,6 @@ export const useSideMenu = () => {
   }
 
   const getNotifications = async () => {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
     const notf = await useFetch({
       method: 'GET',
       path: '/notifications',
@@ -44,7 +43,6 @@ export const useSideMenu = () => {
   };
 
   const updateNofication = async (id: string) => {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
     await useFetch({
       method: 'PATCH',
       path: `/notifications/${id}`,

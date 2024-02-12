@@ -1,6 +1,6 @@
 export const checkForCookie = <T = any>(name: string) => {
   const cookies = document.cookie.split('; ');
-  const cookie = cookies.find((cookie) => cookie.startsWith(name));
+  const cookie = cookies.find((cookieValue) => cookieValue.startsWith(name));
   const cookieValue = cookie?.split('=')[1];
 
   let parsedCookieValue: any;
