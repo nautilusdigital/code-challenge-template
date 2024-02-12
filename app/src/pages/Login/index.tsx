@@ -1,5 +1,7 @@
-import { Button, Input, TextButton } from 'awesome-gcl';
+import { Button, Input } from 'awesome-gcl';
 import { useLogin } from './useLogic';
+import { LOGIN } from './const';
+import { Link } from '../../components';
 
 export const Login = () => {
   const hook = useLogin();
@@ -7,18 +9,20 @@ export const Login = () => {
   return (
     <div className="w-full h-screen flex justify-center items-center">
       <div className="w-[470px] flex flex-col justify-center items-start">
-        <h1 className="font-bold text-[32px] mb-[60px]">Log in MEow</h1>
+        <h1 className="font-bold text-[32px] mb-[60px]">{LOGIN.TITLE}</h1>
         {hook.renderError && (
-          <div className='border-4 border-solid rounded-lg border-support-alert-50 bg-white-100 text-support-alert-50 p-4 mb-8'>
-            Something went wrong. Please contact the support team
+          <div
+            className='border-4 border-solid rounded-lg border-support-alert-50 bg-white-100 text-support-alert-50 p-4 mb-8'
+          >
+            {LOGIN.ERRORS.DEFAULT}
           </div>
         )}
         <Input
           size='large'
           type='email'
-          label='Email'
+          label={LOGIN.INPUTS.EMAIL.LABEL}
           value={hook.email}
-          placeholder='' // TBD
+          placeholder={LOGIN.INPUTS.EMAIL.PLACEHOLDER}
           onChange={(event) => hook.emailHandler(event)}
           additionalClasses={{
             inputWrapper: ['w-full'],
@@ -28,9 +32,9 @@ export const Login = () => {
         <Input
           size='large'
           type='password'
-          label='Password'
+          label={LOGIN.INPUTS.PASSWORD.LABEL}
           value={hook.password}
-          placeholder='' // TBD
+          placeholder={LOGIN.INPUTS.PASSWORD.PLACEHOLDER}
           onChange={(event) => hook.passwordHandler(event)}
           additionalClasses={{
             wrapper: ['my-8'],
@@ -47,22 +51,20 @@ export const Login = () => {
             button: ['w-full'],
           }}
         >
-          Log In
+          {LOGIN.BUTTON.LOGIN}
         </Button>
 
         <div className='flex gap-2 mt-6'>
-          <p>Need an account? {' '}</p>
-          <TextButton
-            handleClick={hook.signupNavigateHandler}
+          <p>{LOGIN.FOOTER_TEXT.LABEL}</p>
+          <Link
             size='large'
             theme='primary'
-            type='button'
+            href={LOGIN.FOOTER_TEXT.LINK.URL}
           >
-            Sign up.
-          </TextButton>
+            {LOGIN.FOOTER_TEXT.LINK.LABEL}
+          </Link>
         </div>
       </div>
-
     </div>
   );
 };
