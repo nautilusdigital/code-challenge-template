@@ -6,9 +6,9 @@ import { useCacheContext } from '../../hooks/useCacheContext';
 
 export const useSideMenu = () => {
   const navigate = useNavigate();
-  const [notifications, setNotifications] = useState<Record<string, any>[]>([]);
   const [modalOpen, setModalOpen] = useState(false);
-  const [newNotification, setNewNotification] = useState(false);
+  // const [notifications, setNotifications] = useState<Record<string, any>[]>([]);
+  // const [newNotification, setNewNotification] = useState(false);
   const { hookCacheContextState } = useCacheContext();
 
   const toggleModal = () => {
@@ -24,48 +24,48 @@ export const useSideMenu = () => {
     navigate('/');
   }
 
-  const getNotifications = async () => {
-    const notf = await useFetch({
-      method: 'GET',
-      path: '/notifications',
-      headers: {
-        authorization: `Bearer ${hookCacheContextState.tokens.accessToken}`,
-      },
-    });
+  // const getNotifications = async () => {
+  //   const notf = await useFetch({
+  //     method: 'GET',
+  //     path: '/notifications',
+  //     headers: {
+  //       authorization: `Bearer ${hookCacheContextState.tokens.accessToken}`,
+  //     },
+  //   });
 
-    if (notf?.status === 200) {
-      setNotifications(notf.data);
-      if (notf.data.filter((item: any) => item.read === 'true').length > 0) {
-        console.log('test');
-        setNewNotification(true);
-      }
-    }
-  };
+  //   if (notf?.status === 200) {
+  //     setNotifications(notf.data);
+  //     if (notf.data.filter((item: any) => item.read === 'true').length > 0) {
+  //       console.log('test');
+  //       setNewNotification(true);
+  //     }
+  //   }
+  // };
 
-  const updateNofication = async (id: string) => {
-    await useFetch({
-      method: 'PATCH',
-      path: `/notifications/${id}`,
-      headers: {
-        authorization: `Bearer ${hookCacheContextState.tokens.accessToken}`,
-      },
-    });
+  // const updateNofication = async (id: string) => {
+  //   await useFetch({
+  //     method: 'PATCH',
+  //     path: `/notifications/${id}`,
+  //     headers: {
+  //       authorization: `Bearer ${hookCacheContextState.tokens.accessToken}`,
+  //     },
+  //   });
 
-    getNotifications();
-  };
+  //   getNotifications();
+  // };
 
-  useEffect(() => {
-    getNotifications();
-  }, []);
+  // useEffect(() => {
+  //   getNotifications();
+  // }, []);
 
   return {
     handleLogout,
     handleGoHomePage,
-    notifications,
     modalOpen,
     toggleModal,
-    newNotification,
-    updateNofication,
+    // notifications,
+    // newNotification,
+    // updateNofication,
     hookCacheContextState,
   };
 };

@@ -1,5 +1,5 @@
 import { Button, Input, TextButton } from 'awesome-gcl';
-import { useLogin } from './logic';
+import { useLogin } from './useLogic';
 
 export const Login = () => {
   const hook = useLogin();

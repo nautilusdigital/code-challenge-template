@@ -36,5 +36,6 @@ export const useFetch = async ({
     };
   } catch (error) {
     console.log('fetch Error', error);
+    return {};
   }
 };

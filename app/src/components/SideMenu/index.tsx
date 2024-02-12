@@ -31,12 +31,12 @@ export const SideMenu = () => {
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
             <path fill-rule="evenodd" clip-rule="evenodd" d="M5.00001 20C4.29575 20 3.82474 19.2979 4.05979 18.6586L4.10558 18.5528L5.261 16.242C5.69839 15.3672 5.94708 14.4115 5.99244 13.4369L6.00001 13.1115L6.00001 10C6.00001 7.02694 8.16239 4.55893 11.0002 4.08293L11 3C11 2.44772 11.4477 2 12 2C12.5523 2 13 2.44772 13 3L13.0008 4.08309C15.7593 4.54627 17.8794 6.89172 17.995 9.75347L18 10L18 13.1115C18 14.0895 18.205 15.0555 18.6002 15.9474L18.739 16.242L19.8944 18.5528C20.2094 19.1827 19.792 19.918 19.1151 19.9936L19 20H14C14 21.1046 13.1046 22 12 22C10.8954 22 10 21.1046 10 20H5.00001ZM12 6C9.85781 6 8.10893 7.68397 8.0049 9.80036L8.00001 10L8.00001 13.1115C8.00001 14.3922 7.72666 15.6569 7.19981 16.8213L7.04985 17.1364L6.61804 18L17.382 18L16.9502 17.1364C16.3774 15.9908 16.0563 14.7374 16.0068 13.4603L16 13.1115L16 10C16 7.79086 14.2091 6 12 6Z" fill="#202532" />
           </svg>
-          {hook.newNotification && (
+          {/* {hook.newNotification && (
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none" className='absolute top-2 right-2'>
               <path d="M8 15C11.866 15 15 11.866 15 8C15 4.13401 11.866 1 8 1C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15Z" stroke="#F2F2F3" stroke-width="2" />
               <path fill-rule="evenodd" clip-rule="evenodd" d="M8 14C11.3137 14 14 11.3137 14 8C14 4.68629 11.3137 2 8 2C4.68629 2 2 4.68629 2 8C2 11.3137 4.68629 14 8 14Z" fill="#DE1C22" />
             </svg>
-          )}
+          )} */}
         </button>
       </div>
       <div className="w-full h-3/4 pt-20 pb-8">
@@ -68,52 +68,6 @@ export const SideMenu = () => {
           wrapper: ['py-8'],
         }}
       />
-
-      <Modal
-        isOpen={hook.modalOpen}
-        additionalClasses={{
-          dialog: ['flex flex-col items-start justify-start p-0 h-[600px]', 'rounded-2xl'],
-        }}
-      >
-        <div className='w-full flex items-center justify-between p-[24px] border-solid border-b border-grayscale-60'>
-          <h2 className='text-xl font-bold'>Notifications</h2>
-          <button
-            onClick={hook.toggleModal}
-            className=''
-          >
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <line x1="4" y1="4" x2="20" y2="20" stroke="black" strokeWidth="2" />
-              <line x1="4" y1="20" x2="20" y2="4" stroke="black" strokeWidth="2" />
-            </svg>
-          </button>
-        </div>
-        <p className='w-full p-[24px] pb-[16px] text-base font-semibold text-grayscale-60'>
-          Most recent
-        </p>
-        {hook.notifications.map((notification, index) => (
-          <button
-            key={index}
-            onClick={() => hook.updateNofication(notification.id)}
-            className={`flex flex-col gap-[8px] items-start justify-center w-full min-w-[500px] px-[24px] py-[16px] ${notification.read === 'true' ? 'bg-white-100' : 'bg-primary-0'} border-b border-solid border-grayscale-10`}
-          >
-            <p>
-              {notification.text}
-            </p>
-            {/* <p
-            className={`${notification.read === 'false' ? 'text-primary-50' : 'text-grayscale-60'}`}
-            >
-            {moment(notification.createdAt).fromNow()}
-            </p>
-             */}
-          </button>
-        ))}
-      </Modal>
     </div>
   );
 };

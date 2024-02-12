@@ -1,12 +1,10 @@
-import HomeButtonIcon from '../assets/svg/homeIcon.svg';
-
 const homeButton = require('../assets/svg/homeIcon.svg') as string;
 const logOutButton = require('../assets/svg/logOutIcon.svg') as string;
 
 const imageList = {
   icons: {
     homeButton: {
-      src: HomeButtonIcon,
+      src: homeButton,
       alt: 'home Button Icon on side menu',
     },
     logoutButton: {

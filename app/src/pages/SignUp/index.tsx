@@ -1,5 +1,5 @@
 import { Button, TextButton } from 'awesome-gcl';
-import { useSignup } from './logic';
+import { useSignup } from './useLogic';
 import { BasicSignupInfo, AddressSignup } from '../../components';
 
 export const SignUp = () => {
