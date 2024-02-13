@@ -1,3 +1,4 @@
+import React from 'react';
 import { Button, Input } from 'awesome-gcl';
 import { useLogin } from './useLogic';
 import { LOGIN } from './const';

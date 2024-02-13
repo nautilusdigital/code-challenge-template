@@ -13,7 +13,6 @@ export const useLogin = () => {
 
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-  const [renderError, setRenderError] = useState<boolean>(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const emailHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -40,8 +39,6 @@ export const useLogin = () => {
       if (status !== 200) {
         if (status !== 400) setErrors({ ...errors, default: LOGIN.ERRORS.DEFAULT });
         if (status === 400) setErrors({ ...errors, default: LOGIN.ERRORS.USER });
-
-        setRenderError(true);
       } else {
         const date = new Date(new Date(Date.now() + 15 * 60 * 1000));
         document.cookie = `${ENVIRONMENT.APP.SESSION_COOKIE_NAME}=${data.tokens.accessToken}; expires=${date.toUTCString()} path=/; SameSite=none;secure`;
@@ -65,13 +62,8 @@ export const useLogin = () => {
         const formatedErrors = formatYupError(error.inner);
         setErrors(formatedErrors);
       }
-      setRenderError(true);
     }
   };
-
-  useEffect(() => {
-    setRenderError(false);
-  }, [email, password]);
 
   useEffect(() => {
     const updateError = { ...errors };
@@ -92,7 +84,6 @@ export const useLogin = () => {
     passwordHandler,
     handleLogin,
 
-    renderError,
     errors,
   };
 };

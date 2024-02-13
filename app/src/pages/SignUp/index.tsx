@@ -1,3 +1,4 @@
+import React from 'react';
 import { Button, TextButton } from 'awesome-gcl';
 import { useSignup } from './useLogic';
 import { BasicSignupInfo, AddressSignup } from '../../components';

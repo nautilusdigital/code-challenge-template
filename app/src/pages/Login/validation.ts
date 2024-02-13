@@ -3,7 +3,7 @@ import { LoginValidationPropTypes } from './types';
 import { LOGIN } from './const';
 
 const loginSchema = object({
-  email: string().email().required(LOGIN.ERRORS.EMAIL),
+  email: string().email(LOGIN.ERRORS.EMAIL).required(LOGIN.ERRORS.EMAIL),
   password: string().required(LOGIN.ERRORS.PASSWORD),
 });
 

@@ -1,3 +1,4 @@
+import React from 'react';
 import { useAppWrapper } from './logic';
 import { AppWrapperPropTypes } from './types';
 import { SideMenu } from '../SideMenu';
