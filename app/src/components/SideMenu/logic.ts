@@ -1,14 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ENVIRONMENT } from '../../config/environment';
-import { useFetch } from '../../hooks';
 import { useCacheContext } from '../../hooks/useCacheContext';
 
 export const useSideMenu = () => {
   const navigate = useNavigate();
   const [modalOpen, setModalOpen] = useState(false);
-  // const [notifications, setNotifications] = useState<Record<string, any>[]>([]);
-  // const [newNotification, setNewNotification] = useState(false);
   const { hookCacheContextState } = useCacheContext();
 
   const toggleModal = () => {
@@ -24,47 +21,11 @@ export const useSideMenu = () => {
     navigate('/');
   }
 
-  // const getNotifications = async () => {
-  //   const notf = await useFetch({
-  //     method: 'GET',
-  //     path: '/notifications',
-  //     headers: {
-  //       authorization: `Bearer ${hookCacheContextState.tokens.accessToken}`,
-  //     },
-  //   });
-
-  //   if (notf?.status === 200) {
-  //     setNotifications(notf.data);
-  //     if (notf.data.filter((item: any) => item.read === 'true').length > 0) {
-  //       setNewNotification(true);
-  //     }
-  //   }
-  // };
-
-  // const updateNofication = async (id: string) => {
-  //   await useFetch({
-  //     method: 'PATCH',
-  //     path: `/notifications/${id}`,
-  //     headers: {
-  //       authorization: `Bearer ${hookCacheContextState.tokens.accessToken}`,
-  //     },
-  //   });
-
-  //   getNotifications();
-  // };
-
-  // useEffect(() => {
-  //   getNotifications();
-  // }, []);
-
   return {
     handleLogout,
     handleGoHomePage,
     modalOpen,
     toggleModal,
-    // notifications,
-    // newNotification,
-    // updateNofication,
     hookCacheContextState,
   };
 };

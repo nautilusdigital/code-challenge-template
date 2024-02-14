@@ -1,23 +1,24 @@
 import React from 'react';
 import { Input } from 'awesome-gcl';
-import { SignupBasicPropTypes } from '../../../pages/SignUp/types';
+import { SignupBasicPropTypes } from '../../pages/SignUp/types';
+import { SIGN_UP_FORM } from './const';
 
-type BasicSignupInfoPropTypes = {
+type SignupFormPropTypes = {
   basicUserInfo: SignupBasicPropTypes
   updateFormHandler: (value: Record<string, any>) => void
   errors: string[]
 }
 
-export const BasicSignupInfo = ({
+export const SignupForm = ({
   updateFormHandler, basicUserInfo, errors,
-}: BasicSignupInfoPropTypes) => (
+}: SignupFormPropTypes) => (
   <div className="grid grid-cols-2 gap-x-4 gap-y-8 mb-8">
     <Input
       size='large'
       type='text'
-      label='First Name'
+      label={SIGN_UP_FORM.FIRST_NAME.LABEL}
       value={basicUserInfo.firstName}
-      placeholder='First Name'
+      placeholder={SIGN_UP_FORM.FIRST_NAME.PLACEHOLDER}
       onChange={(event) => updateFormHandler({
         firstName: event.target.value,
       })}
@@ -30,9 +31,9 @@ export const BasicSignupInfo = ({
     <Input
       size='large'
       type='text'
-      label='Last Name'
+      label={SIGN_UP_FORM.LAST_NAME.LABEL}
       value={basicUserInfo.lastName}
-      placeholder='Last Name'
+      placeholder={SIGN_UP_FORM.LAST_NAME.PLACEHOLDER}
       onChange={(event) => updateFormHandler({
         lastName: event.target.value,
       })}
@@ -46,9 +47,9 @@ export const BasicSignupInfo = ({
     <Input
       size='large'
       type='email'
-      label='Email'
+      label={SIGN_UP_FORM.EMAIL.LABEL}
       value={basicUserInfo.email}
-      placeholder='Enter your email'
+      placeholder={SIGN_UP_FORM.EMAIL.PLACEHOLDER}
       onChange={(event) => updateFormHandler({
         email: event.target.value,
       })}
@@ -62,9 +63,9 @@ export const BasicSignupInfo = ({
     <Input
       size='large'
       type='password'
-      label='Password'
+      label={SIGN_UP_FORM.PASSWORD.LABEL}
       value={basicUserInfo.password}
-      placeholder='Enter your password'
+      placeholder={SIGN_UP_FORM.PASSWORD.PLACEHOLDER}
       onChange={(event) => updateFormHandler({
         password: event.target.value,
       })}

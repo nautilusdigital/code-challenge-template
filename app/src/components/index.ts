@@ -1,5 +1,5 @@
 export * from './AppWrapper';
 export * from './SideMenu';
-export * from './SignupForms';
+export * from './SignupForm';
 export * from './UserRadio';
 export * from './Link';

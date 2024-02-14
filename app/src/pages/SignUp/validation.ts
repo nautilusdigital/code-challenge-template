@@ -19,24 +19,3 @@ export const validationBasicInfo = async ({
     email, password, firstName, lastName,
   }, { abortEarly: false });
 };
-
-export const validationAddressInfo = async ({
-  address, city, phoneNumber, postalCode, province, unitNumber,
-}: SignupAddressPropTypes) => {
-  const signupAddressSchema = object({
-    address: string().required(),
-    unitNumber: string(),
-    city: string().required(),
-    province: object({
-      id: string().required(),
-      label: string(),
-    }),
-    postalCode: string().matches(postalCodeExp, 'Postal code is not valid'),
-    phoneNumber: string().matches(phoneRegExp, 'Phone number is not valid'),
-
-  });
-
-  return signupAddressSchema.validate({
-    address, city, phoneNumber, postalCode, province, unitNumber,
-  }, { abortEarly: false });
-};
