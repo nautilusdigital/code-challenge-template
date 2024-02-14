@@ -4,27 +4,29 @@ import { SignupBasicPropTypes } from '../../pages/SignUp/types';
 import { SIGN_UP_FORM } from './const';
 
 type SignupFormPropTypes = {
-  basicUserInfo: SignupBasicPropTypes
+  createAccountState: SignupBasicPropTypes
   updateFormHandler: (value: Record<string, any>) => void
-  errors: string[]
+  errors: Record<string, string>
 }
 
 export const SignupForm = ({
-  updateFormHandler, basicUserInfo, errors,
+  updateFormHandler, createAccountState, errors,
 }: SignupFormPropTypes) => (
   <div className="grid grid-cols-2 gap-x-4 gap-y-8 mb-8">
     <Input
       size='large'
       type='text'
       label={SIGN_UP_FORM.FIRST_NAME.LABEL}
-      value={basicUserInfo.firstName}
+      value={createAccountState.firstName}
       placeholder={SIGN_UP_FORM.FIRST_NAME.PLACEHOLDER}
       onChange={(event) => updateFormHandler({
         firstName: event.target.value,
       })}
+      caption={errors.firstName}
       additionalClasses={{
         inputWrapper: ['w-full'],
-        input: [errors.includes('firstName') ? 'w-full border-support-alert-50' : 'w-full'],
+        input: [errors.firstName ? 'w-full border-support-alert-50' : 'w-full'],
+        caption: ['text-support-alert-50'],
       }}
 
     />
@@ -32,15 +34,16 @@ export const SignupForm = ({
       size='large'
       type='text'
       label={SIGN_UP_FORM.LAST_NAME.LABEL}
-      value={basicUserInfo.lastName}
+      value={createAccountState.lastName}
       placeholder={SIGN_UP_FORM.LAST_NAME.PLACEHOLDER}
       onChange={(event) => updateFormHandler({
         lastName: event.target.value,
       })}
-
+      caption={errors.lastName}
       additionalClasses={{
         inputWrapper: ['w-full'],
-        input: [errors.includes('lastName') ? 'w-full border-support-alert-50' : 'w-full'],
+        input: [errors.lastName ? 'w-full border-support-alert-50' : 'w-full'],
+        caption: ['text-support-alert-50'],
       }}
     />
 
@@ -48,15 +51,17 @@ export const SignupForm = ({
       size='large'
       type='email'
       label={SIGN_UP_FORM.EMAIL.LABEL}
-      value={basicUserInfo.email}
+      value={createAccountState.email}
       placeholder={SIGN_UP_FORM.EMAIL.PLACEHOLDER}
       onChange={(event) => updateFormHandler({
         email: event.target.value,
       })}
+      caption={errors.email}
       additionalClasses={{
         wrapper: ['col-span-2'],
         inputWrapper: ['w-full'],
-        input: [errors.includes('email') ? 'w-full border-support-alert-50' : 'w-full'],
+        input: [errors.email ? 'w-full border-support-alert-50' : 'w-full'],
+        caption: ['text-support-alert-50'],
       }}
     />
 
@@ -64,15 +69,17 @@ export const SignupForm = ({
       size='large'
       type='password'
       label={SIGN_UP_FORM.PASSWORD.LABEL}
-      value={basicUserInfo.password}
+      value={createAccountState.password}
       placeholder={SIGN_UP_FORM.PASSWORD.PLACEHOLDER}
       onChange={(event) => updateFormHandler({
         password: event.target.value,
       })}
+      caption={errors.password}
       additionalClasses={{
         wrapper: ['col-span-2'],
         inputWrapper: ['w-full'],
-        input: [errors.includes('password') ? 'w-full border-support-alert-50' : 'w-full'],
+        input: [errors.password ? 'w-full border-support-alert-50' : 'w-full'],
+        caption: ['text-support-alert-50'],
       }}
     />
   </div>

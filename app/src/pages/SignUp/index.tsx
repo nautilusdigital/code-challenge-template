@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, TextButton } from 'awesome-gcl';
+import { Button } from 'awesome-gcl';
 import { useSignup } from './useLogic';
 import { Link, SignupForm } from '../../components';
 import { SIGN_UP } from './const';
@@ -13,15 +13,18 @@ export const SignUp = () => {
         <h1 className="font-bold text-[32px] mb-[60px]">
           {SIGN_UP.TITLE}
         </h1>
-        {hook.renderError && (
-          <div className='border-4 border-solid rounded-lg border-support-alert-50 bg-white-100 text-support-alert-50 p-4 mb-8'>
-            Please fill out the miss field before continuing. If you have any questions, please contact the support team.
+
+        {hook.errors.default && (
+          <div
+            className='border-2 border-solid rounded-lg border-support-alert-50 bg-white-100 text-support-alert-50 p-4 mb-8 w-full text-center'
+          >
+            {hook.errors.default}
           </div>
         )}
 
         <SignupForm
           updateFormHandler={hook.updateFormHandler}
-          basicUserInfo={hook.createUserBasicState}
+          createAccountState={hook.createAccountState}
           errors={hook.errors}
         />
 

@@ -1,21 +1,18 @@
 import { object, string } from 'yup';
-import { SignupAddressPropTypes, SignupBasicPropTypes } from './types';
+import { SignupBasicPropTypes } from './types';
+import { SIGN_UP } from './const';
 
-const phoneRegExp = /^\+\d{1,2} \(\d{3}\) \d{3}-\d{4}$/;
-
-const postalCodeExp = /^[A-Za-z]\d[A-Za-z] \d[A-Za-z]\d$/;
-
-export const validationBasicInfo = async ({
+export const userAccountValidation = async ({
   email, password, lastName, firstName,
 }: SignupBasicPropTypes) => {
-  const signupBasicSchema = object({
-    firstName: string().required('Please enter your first name'),
-    lastName: string().required('Please enter your first name'),
-    email: string().email().required('Please enter your email'),
-    password: string().required(), // TODO: define password requirements
+  const userAccountSchema = object({
+    firstName: string().required(SIGN_UP.ERRORS.FIRST_NAME),
+    lastName: string().required(SIGN_UP.ERRORS.LAST_NAME),
+    email: string().email(SIGN_UP.ERRORS.EMAIL).required(SIGN_UP.ERRORS.EMAIL),
+    password: string().required(SIGN_UP.ERRORS.PASSWORD),
   });
 
-  return signupBasicSchema.validate({
+  return userAccountSchema.validate({
     email, password, firstName, lastName,
   }, { abortEarly: false });
 };

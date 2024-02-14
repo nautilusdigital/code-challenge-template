@@ -1,65 +1,71 @@
 import { useEffect, useReducer, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useFetch } from '../../hooks';
-import { validationBasicInfo } from './validation';
+import { userAccountValidation } from './validation';
 import { useSignupReducer } from './reducer';
-import { INIT_USER } from './const';
+import { INIT_USER, SIGN_UP } from './const';
+import { formatYupError } from '../../utils/formatYupError';
 
 export const useSignup = () => {
   const navigate = useNavigate();
 
-  const [errors, setErrors] = useState<string[]>([]);
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [validOnBlur, setValidOnBlur] = useState(false);
 
-  const [createUserBasicState, createUserBasicDispatcher] = useReducer(useSignupReducer, INIT_USER);
+  const [createAccountState, createAccountDispatcher] = useReducer(useSignupReducer, INIT_USER);
 
-  const [renderError, setRenderError] = useState<boolean>(false);
-
-  const updateFormHandler = (data: Record<string, any>) => createUserBasicDispatcher({ data });
+  const updateFormHandler = (data: Record<string, any>) => createAccountDispatcher({ data });
 
   const createAccountHandler = async () => {
     try {
-      const auth = await useFetch({
+      await userAccountValidation(createAccountState);
+
+      const { status } = await useFetch({
         method: 'POST',
         path: '/signup',
         body: {
-          ...createUserBasicState,
+          ...createAccountState,
         },
       });
 
-      if (auth?.status !== 204) {
-        setRenderError(true);
+      if (status !== 204) {
+        if (status !== 400) setErrors({ ...errors, default: SIGN_UP.ERRORS.DEFAULT });
+        if (status === 400) setErrors({ ...errors, default: SIGN_UP.ERRORS.ACCOUNT });
       } else {
         navigate('/login', {
           replace: true,
         });
       }
-    } catch (e: any) {
-      setRenderError(true);
+    } catch (error: any) {
+      if (error.inner) {
+        const formatedErrors = formatYupError(error.inner);
+        setErrors(formatedErrors);
+        setValidOnBlur(true);
+      }
     }
   };
 
-  const validateForm = async (showError = false) => {
+  const validateForm = async () => {
     try {
-      await validationBasicInfo(createUserBasicState);
+      await userAccountValidation(createAccountState);
+      setErrors({});
     } catch (error: any) {
-      if (showError) {
-        const errorsMessage: string[] = [];
-        error?.inner.forEach((element: any) => {
-          errorsMessage.push(element.path);
-        });
-        setErrors(errorsMessage);
+      if (error.inner) {
+        const formatedErrors = formatYupError(error.inner);
+        setErrors(formatedErrors);
       }
     }
   };
 
   useEffect(() => {
+    if (!validOnBlur) return;
+
     validateForm();
-  }, [createUserBasicState]);
+  }, [createAccountState]);
 
   return {
-    createUserBasicState,
+    createAccountState,
     updateFormHandler,
-    renderError,
     createAccountHandler,
     errors,
   };
