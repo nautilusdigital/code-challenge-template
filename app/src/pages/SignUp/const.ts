@@ -20,7 +20,7 @@ export const SIGN_UP = {
   },
 };
 
-export const INIT_USER = {
+export const INIT_SIGN_UP_ACCOUNT = {
   firstName: '',
   lastName: '',
   email: '',

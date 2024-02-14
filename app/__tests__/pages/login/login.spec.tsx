@@ -40,10 +40,6 @@ const mockData = {
 };
 
 describe('useLogic hook tests', () => {
-  afterEach(() => {
-    jest.clearAllMocks();
-  });
-
   let container;
   beforeEach(() => {
     container = document.createElement('div');
@@ -61,6 +57,8 @@ describe('useLogic hook tests', () => {
   afterEach(() => {
     document.body.removeChild(container);
     container = null;
+
+    jest.clearAllMocks();
   });
 
   it('should update email and password correctly', () => {

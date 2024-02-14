@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useFetch } from '../../hooks';
 import { userAccountValidation } from './validation';
 import { useSignupReducer } from './reducer';
-import { INIT_USER, SIGN_UP } from './const';
+import { INIT_SIGN_UP_ACCOUNT, SIGN_UP } from './const';
 import { formatYupError } from '../../utils/formatYupError';
 
 export const useSignup = () => {
@@ -12,7 +12,7 @@ export const useSignup = () => {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [validOnBlur, setValidOnBlur] = useState(false);
 
-  const [createAccountState, createAccountDispatcher] = useReducer(useSignupReducer, INIT_USER);
+  const [createAccountState, createAccountDispatcher] = useReducer(useSignupReducer, INIT_SIGN_UP_ACCOUNT);
 
   const updateFormHandler = (data: Record<string, any>) => createAccountDispatcher({ data });
 
@@ -20,7 +20,7 @@ export const useSignup = () => {
     try {
       await userAccountValidation(createAccountState);
 
-      const { status } = await useFetch({
+      const { status, data } = await useFetch({
         method: 'POST',
         path: '/signup',
         body: {
@@ -28,13 +28,25 @@ export const useSignup = () => {
         },
       });
 
-      if (status !== 204) {
-        if (status !== 400) setErrors({ ...errors, default: SIGN_UP.ERRORS.DEFAULT });
-        if (status === 400) setErrors({ ...errors, default: SIGN_UP.ERRORS.ACCOUNT });
-      } else {
+      if (status === 204) {
         navigate('/login', {
           replace: true,
         });
+      } else {
+        if (status === 500) {
+          setErrors({ ...errors, default: SIGN_UP.ERRORS.ACCOUNT });
+          return;
+        }
+
+        if (status === 400) {
+          if (data.errorFields) {
+            const errorFormat = formatYupError(data.errorFields);
+            setErrors({ ...errors, ...errorFormat });
+            return;
+          }
+        }
+
+        setErrors({ ...errors, default: SIGN_UP.ERRORS.DEFAULT });
       }
     } catch (error: any) {
       if (error.inner) {
