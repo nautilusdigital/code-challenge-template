@@ -1,17 +1,24 @@
-const homeButton = require('../assets/svg/homeIcon.svg') as string;
-const logOutButton = require('../assets/svg/logOutIcon.svg') as string;
+import homeIcon from '../assets/svg/homeIcon.svg';
+import logOutIcon from '../assets/svg/logOutIcon.svg';
+import companyLogo from '../assets/images/cctech-logo-black.webp';
 
-const imageList = {
-  icons: {
-    homeButton: {
-      src: homeButton,
-      alt: 'home Button Icon on side menu',
-    },
-    logoutButton: {
-      src: logOutButton,
-      alt: 'Icon for log out button on side menu',
-    },
-  },
-};
+export const IMAGES = new Map();
+export const ICONS = new Map();
 
-export default imageList;
+// IMAGES
+
+IMAGES.set('COMPANY_ICON', {
+  SRC: companyLogo,
+  ALT: 'company logo',
+});
+
+// ICONS
+ICONS.set('HOME_ICON', {
+  SRC: homeIcon,
+  ALT: 'house icon',
+});
+
+ICONS.set('LOGOUT_ICON', {
+  SRC: logOutIcon,
+  ALT: 'logout icon',
+});

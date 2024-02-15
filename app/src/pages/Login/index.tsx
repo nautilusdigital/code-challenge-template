@@ -40,6 +40,12 @@ export const Login = () => {
           placeholder={LOGIN.INPUTS.PASSWORD.PLACEHOLDER}
           onChange={(event) => hook.passwordHandler(event)}
           caption={hook.errors.password}
+          onKeyDown={(event: any) => {
+            if (event.key === 'Enter') {
+              event.preventDefault();
+              hook.handleLogin();
+            }
+          }}
           additionalClasses={{
             wrapper: ['my-8'],
             inputWrapper: ['w-full'],
