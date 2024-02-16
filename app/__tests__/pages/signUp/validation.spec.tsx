@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { SIGN_UP } from '../../../src/pages/SignUp/const';
 import { userAccountValidation } from '../../../src/pages/SignUp/validation';
 

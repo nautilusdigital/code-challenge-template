@@ -4,7 +4,7 @@ import {
 } from 'awesome-gcl';
 import { useSideMenu } from './useLogic';
 import { Link } from '../Link';
-import { ICONS, IMAGES } from '../../utils/imageList';
+import { ICONS, IMAGES } from '../../utils';
 import { SIDE_MENU } from './const';
 
 export const SideMenu = () => {
@@ -52,9 +52,9 @@ export const SideMenu = () => {
         </Button>
         <User
           size="large"
-          firstName={hook.hookCacheContextState.user.name.split(' ')[0] || 'x'}
-          lastName={hook.hookCacheContextState.user.name.split(' ')[1] || 'x'}
-          description={hook.hookCacheContextState.user.email || 'x'}
+          firstName={hook.hookCacheContextState.user.name.split(' ')[0] || ''}
+          lastName={hook.hookCacheContextState.user.name.split(' ')[1] || ''}
+          description={hook.hookCacheContextState.user.email || ''}
           additionalClasses={{
             wrapper: ['py-2'],
           }}

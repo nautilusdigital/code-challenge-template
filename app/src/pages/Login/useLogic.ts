@@ -4,7 +4,7 @@ import { ENVIRONMENT } from '../../config/environment';
 import { validationLogin } from './validation';
 import { useFetch } from '../../hooks';
 import { useCacheContext } from '../../hooks/useCacheContext';
-import { formatYupError } from '../../utils/formatYupError';
+import { formatYupError } from '../../utils';
 import { LOGIN } from './const';
 
 export const useLogin = () => {

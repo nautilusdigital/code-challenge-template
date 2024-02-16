@@ -4,7 +4,7 @@ import { useFetch } from '../../hooks';
 import { userAccountValidation } from './validation';
 import { useSignupReducer } from './reducer';
 import { INIT_SIGN_UP_ACCOUNT, SIGN_UP } from './const';
-import { formatYupError } from '../../utils/formatYupError';
+import { formatYupError } from '../../utils';
 
 export const useSignup = () => {
   const navigate = useNavigate();

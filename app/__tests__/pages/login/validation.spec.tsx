@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { LOGIN } from '../../../src/pages/Login/const';
 import { validationLogin } from '../../../src/pages/Login/validation';
 

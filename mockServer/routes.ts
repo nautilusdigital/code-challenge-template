@@ -1,4 +1,5 @@
 import {Request, Response, Router} from 'express'
+import { ADMIN_USER, USER } from './const'
 
 const routes = Router()
 
@@ -10,36 +11,13 @@ routes.get('/healthcheck', (_: Request, res: Response) => {
 })
 
 routes.get('/v1/auth/refresh/:id', (req: Request, res: Response) => {
-    console.log('**************** => MEOW MEOW MEOW MEOW')
     res.status(200)
-    .json({
-        user: {
-            id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-            name: "John Doe",
-            email: "johnDoe@email.com",
-            userType: "user",
-            createdAt: "2020-01-01T00:00:00.000Z"
-        },
-        tokens: {
-            accessToken: "jwt-access-token"
-        }
-    })
+    .json(req.params.id === ADMIN_USER.tokens.accessToken ? ADMIN_USER : USER)
 })
 
 routes.post('/v1/auth', (req: Request, res: Response) => {
     res.status(200)
-    .json({
-        user: {
-            id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-            name: "John Doe",
-            email: "johnDoe@email.com",
-            userType: "user",
-            createdAt: "2020-01-01T00:00:00.000Z"
-        },
-        tokens: {
-            accessToken: "jwt-access-token"
-        }
-    })
+    .json(req.body.email === ADMIN_USER.user.email ? ADMIN_USER : USER)
 })
 
 routes.post('/v1/signup', (req: Request, res: Response) => {

@@ -1,5 +1,6 @@
+// @ts-nocheck
 import { LOGIN } from '../../src/pages/Login/const';
-import { formatYupError } from '../../src/utils/formatYupError';
+import { formatYupError } from '../../src/utils';
 
 describe('formatYupError', () => {
   it('should format Yup error array into { email: errorMessage, password: errorMessage }', () => {
