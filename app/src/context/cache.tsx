@@ -1,4 +1,9 @@
-import React, { createContext, useMemo, useReducer } from 'react';
+import React, {
+  createContext,
+  useEffect,
+  useMemo,
+  useReducer,
+} from 'react';
 import { CacheContextActionType, cacheInitialState, useCacheReducer } from '../reducer';
 
 type CacheContextPropTypes = {
@@ -20,7 +25,9 @@ export const CacheProvider = ({ children }: Readonly<CacheProviderPropTypes>) =>
     dispatcherHandler: cacheDispatcher,
   }), [cacheState]);
 
-  console.log('RELOAD CONTEXT FILE');
+  useEffect(() => {
+    console.log('RELOAD CONTEXT FILE', stateMemoed.state);
+  }, [stateMemoed.state]);
   return (
     <CacheContext.Provider value={stateMemoed}>
       {children}
