@@ -6,7 +6,6 @@ export const IMAGES = new Map();
 export const ICONS = new Map();
 
 // IMAGES
-
 IMAGES.set('COMPANY_ICON', {
   SRC: companyLogo,
   ALT: 'company logo',

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useAppWrapper } from './logic';
+import { useAppWrapper } from './useLogic';
 import { AppWrapperPropTypes } from './types';
 import { SideMenu } from '../SideMenu';
 

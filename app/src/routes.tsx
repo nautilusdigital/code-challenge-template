@@ -3,7 +3,10 @@ import {
   Route, Outlet, createBrowserRouter, createRoutesFromElements, RouterProvider,
 } from 'react-router-dom';
 import { CacheProvider } from './context';
-import { Dashboard, Login, SignUp } from './pages';
+import {
+  Dashboard, Login, SignUp,
+} from './pages';
+import { Example } from './pages/Example';
 
 const Layout = () => (
   <CacheProvider>
@@ -17,6 +20,10 @@ const router = createBrowserRouter(
       <Route
         path='/'
         element={<Dashboard />}
+      />
+      <Route
+        path='/example'
+        element={<Example />}
       />
 
       {/* Unprotected Routes */}

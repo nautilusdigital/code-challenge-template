@@ -20,6 +20,7 @@ export const CacheProvider = ({ children }: Readonly<CacheProviderPropTypes>) =>
     dispatcherHandler: cacheDispatcher,
   }), [cacheState]);
 
+  console.log('RELOAD CONTEXT FILE');
   return (
     <CacheContext.Provider value={stateMemoed}>
       {children}
