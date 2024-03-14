@@ -187,6 +187,9 @@
                   "lastName": {
                     "type": "string"
                   },
+                  "category": {
+                    "type": "string"
+                  },
                   "age": {
                     "type": "integer"
                   },
@@ -213,6 +216,7 @@
                   "value": {
                     "firstName": "John",
                     "lastName": "Doe",
+                    "category": "Family",
                     "age": 30,
                     "email": "john@doe.com",
                     "phone": "+17777777777",
@@ -224,10 +228,12 @@
                   "value": {
                     "firstName": "John",
                     "lastName": "Doe",
+                    "category": "Family",
                     "age": 30,
                     "email": "john@doe.com",
                     "phone": "+17777777777",
                     "city": "Vancouver",
+                    "regionId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
                     "regionOther": "United States"
                   }
                 }
@@ -496,19 +502,19 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "contactId": {
+                  "callerId": {
                     "type": "string",
                     "format": "uuid"
                   },
-                  "issueTypeId": {
+                  "clientId": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "issueType": {
                     "type": "string"
                   },
                   "regionId": {
                     "type": "integer",
-                    "format": "uuid"
-                  },
-                  "categoryId": {
-                    "type": "string",
                     "format": "uuid"
                   },
                   "fileName": {
@@ -530,10 +536,10 @@
               "examples": {
                 "Created case": {
                   "value": {
-                    "contactId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-                    "issueTypeId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                    "clientId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                    "callerId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                    "issueType": "Youth transitioning",
                     "regionId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-                    "categoryId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
                     "fileName": "file.pdf",
                     "notes": "any note",
                     "nextReviewDate": "2024-01-01",
@@ -984,7 +990,7 @@
             }
           }
         }
-      },
+      }
     },
     "/utils/select-options": {
       "get": {
