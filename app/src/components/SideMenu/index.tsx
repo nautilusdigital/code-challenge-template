@@ -1,10 +1,8 @@
 import React from 'react';
 import {
-  Figure, User,
+  User,
 } from 'awesome-gcl';
 import { useSideMenu } from './useLogic';
-import { Link } from '../Link';
-import { IMAGES } from '../../utils';
 
 export const SideMenu = () => {
   const hook = useSideMenu();
@@ -14,16 +12,7 @@ export const SideMenu = () => {
       className="flex flex-col h-screen w-[300px] border-e border-solid border-grayscale-10 px-3 py-4"
     >
       <div className="flex justify-between w-full mb-20">
-        <Link
-          href='/'
-          size="medium"
-          theme="primary"
-        >
-          <Figure
-            alt={IMAGES.get('COMPANY_ICON').ALT}
-            src={IMAGES.get('COMPANY_ICON').SRC}
-          />
-        </Link>
+        <h1>Case Management System</h1>
       </div>
 
       <div className="w-full min-h-3/4 max-h-3/4 h-full scrollhide pb-8 overflow-auto mb-10">
