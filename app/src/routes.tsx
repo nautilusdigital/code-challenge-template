@@ -3,9 +3,7 @@ import {
   Route, Outlet, createBrowserRouter, createRoutesFromElements, RouterProvider,
 } from 'react-router-dom';
 import { CacheProvider } from './context';
-import {
-  Dashboard, Login, SignUp,
-} from './pages';
+import { Dashboard } from './pages';
 import { Example } from './pages/Example';
 
 const Layout = () => (
@@ -25,19 +23,9 @@ const router = createBrowserRouter(
         path='/example'
         element={<Example />}
       />
-
-      {/* Unprotected Routes */}
-      <Route
-        path='/login'
-        element={<Login />}
-      />
-      <Route
-        path='/signup'
-        element={<SignUp />}
-      />
       <Route
         path='*'
-        element={<Login />} // Redirect to 404 or Login page
+        element={<Dashboard />}
       />
     </Route>,
   ),
