@@ -1,11 +1,9 @@
 import React from 'react';
 import {
-  Button, Figure, User,
+  User,
 } from 'awesome-gcl';
 import { useSideMenu } from './useLogic';
-import { Link } from '../Link';
-import { ICONS, IMAGES } from '../../utils';
-import { SIDE_MENU } from './const';
+import { PATH } from '../../utils';
 
 export const SideMenu = () => {
   const hook = useSideMenu();
@@ -15,46 +13,27 @@ export const SideMenu = () => {
       className="flex flex-col h-screen w-[300px] border-e border-solid border-grayscale-10 px-3 py-4"
     >
       <div className="flex justify-between w-full mb-20">
-        <Link
-          href='/'
-          size="medium"
-          theme="primary"
-        >
-          <Figure
-            alt={IMAGES.get('COMPANY_ICON').ALT}
-            src={IMAGES.get('COMPANY_ICON').SRC}
-          />
-        </Link>
+        <h1 className='text-primary-40 text-sm font-bold'>Case Management System</h1>
       </div>
 
       <div className="w-full min-h-3/4 max-h-3/4 h-full scrollhide pb-8 overflow-auto mb-10">
-        <p> MENU ITEMS </p>
+        {Array.from(PATH.values()).map((page, index) => (
+          <a
+            href={page.URL}
+            key={index}
+            className={`flex items-center justify-start gap-3 rounded-md py-3 px-4 font-semibold text-sm text-grayscale-100 ${window.location.pathname === page.URL ? 'bg-grayscale-0' : 'bg-transparent'}`}
+          >
+            {page.TITLE}
+          </a>
+        ))}
       </div>
 
       <div className='flex flex-col justify-end max-h-1/4 gap-8 '>
-        <Button
-          handleClick={hook.handleLogout}
-          size='large'
-          type='button'
-          theme='tertiary'
-          additionalClasses={{
-            button: ['!justify-start', 'flex', 'gap-3', 'w-full', 'bg-zinc-100', 'border-zinc-100', 'hover:bg-zinc-300', 'hover:border-zinc-300'],
-          }}
-        >
-          <Figure
-            alt={ICONS.get('LOGOUT_ICON').ALT}
-            src={ICONS.get('LOGOUT_ICON').SRC}
-            additionalClasses={{
-              figure: ['!w-6', '!h-6'],
-            }}
-          />
-          {SIDE_MENU.BUTTONS.LOG_OUT}
-        </Button>
         <User
           size="large"
-          firstName={hook.hookCacheContextState.user.name.split(' ')[0] || ''}
-          lastName={hook.hookCacheContextState.user.name.split(' ')[1] || ''}
-          description={hook.hookCacheContextState.user.email || ''}
+          firstName='Jane'
+          lastName='Cooper'
+          description='janec@gmail.com'
           additionalClasses={{
             wrapper: ['py-2'],
           }}

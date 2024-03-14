@@ -1,12 +1,11 @@
 import React from 'react';
 import {
   Route, Outlet, createBrowserRouter, createRoutesFromElements, RouterProvider,
+  Navigate,
 } from 'react-router-dom';
 import { CacheProvider } from './context';
-import {
-  Dashboard, Login, SignUp,
-} from './pages';
-import { Example } from './pages/Example';
+import { Contacts } from './pages';
+import { PATH } from './utils';
 
 const Layout = () => (
   <CacheProvider>
@@ -18,26 +17,12 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route element={<Layout />}>
       <Route
-        path='/'
-        element={<Dashboard />}
-      />
-      <Route
-        path='/example'
-        element={<Example />}
-      />
-
-      {/* Unprotected Routes */}
-      <Route
-        path='/login'
-        element={<Login />}
-      />
-      <Route
-        path='/signup'
-        element={<SignUp />}
+        path={PATH.get('CONTACT').URL}
+        element={<Contacts />}
       />
       <Route
         path='*'
-        element={<Login />} // Redirect to 404 or Login page
+        element={<Navigate to={PATH.get('CONTACT').URL} />}
       />
     </Route>,
   ),

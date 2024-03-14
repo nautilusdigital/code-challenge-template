@@ -1,6 +1,6 @@
 import { useCacheContext } from '../../hooks/useCacheContext';
 
-export const useDashboard = () => {
+export const useContacts = () => {
   const { hookCacheContextState } = useCacheContext();
 
   return {
