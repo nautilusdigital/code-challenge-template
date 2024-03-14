@@ -3,8 +3,7 @@ import {
   Route, Outlet, createBrowserRouter, createRoutesFromElements, RouterProvider,
 } from 'react-router-dom';
 import { CacheProvider } from './context';
-import { Dashboard } from './pages';
-import { Example } from './pages/Example';
+import { Contacts } from './pages';
 
 const Layout = () => (
   <CacheProvider>
@@ -17,15 +16,11 @@ const router = createBrowserRouter(
     <Route element={<Layout />}>
       <Route
         path='/'
-        element={<Dashboard />}
-      />
-      <Route
-        path='/example'
-        element={<Example />}
+        element={<Contacts />}
       />
       <Route
         path='*'
-        element={<Dashboard />}
+        element={<Contacts />}
       />
     </Route>,
   ),

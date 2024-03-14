@@ -1,10 +1,10 @@
 import React from 'react';
 import { AppWrapper, Link } from '../../components';
 import { DASHBOARD } from './const';
-import { useDashboard } from './useLogic';
+import { useContacts } from './useLogic';
 
-export const Dashboard = () => {
-  const hook = useDashboard();
+export const Contacts = () => {
+  const hook = useContacts();
 
   return (
     <AppWrapper>
