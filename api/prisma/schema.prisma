@@ -1,0 +1,91 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Contact {
+  id          String   @id(map: "contact_pk") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  firstName   String   @map("frist_name") @db.VarChar(64)
+  lastName    String   @map("last_name") @db.VarChar(64)
+  age         Int
+  email       String   @unique
+  phone       String
+  address     String
+  postalCode  String   @map("postal_code")
+  city        String
+  regionId    String   @map("region_id") @db.Uuid
+  regionOther String?   @map("region_other")
+  createdAt   DateTime @default(dbgenerated("CURRENT_DATE")) @map("created_at") @db.Date
+
+  region Region @relation(fields: [regionId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "region_id_fk")
+
+  caseCaller CaseCaller[]
+
+  @@map("contact")
+}
+
+model Region {
+  id     String @id(map: "region_pk") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  region String @db.VarChar(255)
+
+  contact Contact[]
+  case    Case[]
+
+  @@map("region")
+}
+
+model Case {
+  id        String @id(map: "cases_pk") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  clientId  String @map("client_id") @db.Uuid
+  regionId  String @map("region_id") @db.Uuid
+  issueType String @map("issue_type") @db.Uuid
+  notes     String
+  statusId  String @map("status_id") @db.Uuid
+
+  reviewDate DateTime @map("review_date") @db.Date
+  closedDate DateTime @map("closed_date") @db.Date
+  createdAt  DateTime @default(dbgenerated("CURRENT_DATE")) @map("created_at") @db.Date
+  updatedAt  DateTime @map("updated_at") @db.Date
+
+  status Status @relation(fields: [statusId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "status_id_fk")
+  region Region @relation(fields: [regionId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "region_id_fk")
+
+  caseAttachment CaseAttachment[]
+  caseCaller     CaseCaller[]
+
+  @@map("case")
+}
+
+model Status {
+  id     String @id(map: "statuses_pk") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  status String
+
+  case Case[]
+
+  @@map("status")
+}
+
+model CaseCaller {
+  id       String @id(map: "case_callers_pk") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  caseId   String @map("case_id")
+  callerId String @map("caller_id")
+
+  case   Case    @relation(fields: [caseId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "case_id_fk")
+  caller Contact @relation(fields: [callerId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "caller_id_fk")
+
+  @@map("case_caller")
+}
+
+model CaseAttachment {
+  id     String @id(map: "case_attachment_pk") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  caseId String @map("case_id")
+  fileName   String @map("file_name")
+
+  case Case @relation(fields: [caseId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "status_id_fk")
+
+  @@map("case_attachment")
+}
