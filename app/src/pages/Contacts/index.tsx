@@ -1,5 +1,6 @@
 import React from 'react';
-import { AppWrapper, Link } from '../../components';
+import { Button, Input } from 'awesome-gcl';
+import { AppWrapper, Table } from '../../components';
 import { useContacts } from './useLogic';
 import { PATH } from '../../utils';
 
@@ -8,13 +9,59 @@ export const Contacts = () => {
 
   return (
     <AppWrapper>
-      <header className="w-full flex items-center justify-between mt-3 mb-[60px]">
+      <header className="w-full flex items-start justify-between mt-10 mb-[60px]">
         <h1 className="text-[32px] font-bold">
           {PATH.get('CONTACT').TITLE}
         </h1>
+        <Button
+          type='button'
+          size='large'
+          theme='primary'
+          handleClick={() => console.log('TODO redirect to create contact page')}
+        >
+          + New Contact
+        </Button>
       </header>
-      <div className="w-full flex items-start justify-between gap-8">
-        <Link href='example' size='large' theme='primary'>Line</Link>
+      <div className="w-full flex flex-col items-start justify-start gap-8">
+        <div className='flex items-center justify-start gap-4'>
+          <Input
+            type='text'
+            size='large'
+            placeholder='Enter First Name'
+            value={hook.hookContactState.firstName}
+            onChange={(e) => hook.hookContactDispatcher({ type: 'updateFirstName', data: e.target.value })}
+            label='First Name'
+          />
+          <Input
+            type='text'
+            size='large'
+            placeholder='Enter Last Name'
+            value={hook.hookContactState.lastName}
+            onChange={(e) => hook.hookContactDispatcher({ type: 'updateLastName', data: e.target.value })}
+            label='Last Name'
+          />
+          <Input
+            type='tel'
+            size='large'
+            placeholder='Enter Phone Number'
+            value={hook.hookContactState.phoneNumber}
+            onChange={(e) => hook.hookContactDispatcher({ type: 'updatePhoneNumber', data: e.target.value })}
+            label='Phone Number'
+          />
+        </div>
+        <Table
+          headers={[
+            { id: 'category', label: 'Category' },
+            { id: 'firstName', label: 'First Name' },
+            { id: 'lastName', label: 'Last Name' },
+            { id: 'age', label: 'Age' },
+            { id: 'email', label: 'Email Address' },
+            { id: 'phone', label: 'Phone' },
+            { id: 'city', label: 'City' },
+            { id: 'region', label: 'Region' },
+          ]}
+          data={hook.hookContactState.contacts}
+        />
       </div>
     </AppWrapper>
   );

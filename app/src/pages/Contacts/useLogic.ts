@@ -1,9 +1,11 @@
-import { useCacheContext } from '../../hooks/useCacheContext';
+import { useReducer } from 'react';
+import { cacheInitialState, useReducerContact } from './reducer';
 
 export const useContacts = () => {
-  const { hookCacheContextState } = useCacheContext();
+  const [contactState, contactDispatcher] = useReducer(useReducerContact, cacheInitialState);
 
   return {
-    hookCacheContextState,
+    hookContactState: contactState,
+    hookContactDispatcher: contactDispatcher,
   };
 };
