@@ -1,37 +1,39 @@
 export const VALIDATION_MESSAGES = {
-  SIGN_UP: {
-    FIRST_NAME: {
-      TYPE: 'First name must be a string',
-      REQUIRED: 'First name is required',
-    },
-    LAST_NAME: {
-      TYPE: 'Last name must be a string',
-      REQUIRED: 'Last name is required',
-    },
-    EMAIL: {
-      TYPE: 'Email must be a string',
-      VALID: 'Email must be valid',
-      REQUIRED: 'Email is required',
-    },
-    PASSWORD: {
-      TYPE: 'Password must be a string',
-      REQUIRED: 'Password is required',
-    },
-    ADDRESS: {
-      TYPE: 'Address must be a string',
-      REQUIRED: 'Address is required',
-    },
-    UNIT_NUMBER: {
-      TYPE: 'Unit number must be a string',
-    },
-    POSTAL_CODE: {
-      TYPE: 'Postal code must be a string',
-      REQUIRED: 'Postal code is required',
-    },
-    PHONE_NUMBER: {
-      TYPE: 'Phone number must be a string',
-      VALID: 'Phone number must be valid',
-      REQUIRED: 'Phone number is required',
+  CONTACT: {
+    CREATE: {
+      FIRST_NAME: {
+        TYPE: 'First name must be a string',
+        REQUIRED: 'First name is required',
+      },
+      LAST_NAME: {
+        TYPE: 'Last name must be a string',
+        REQUIRED: 'Last name is required',
+      },
+      AGE: {
+        TYPE: 'Age must be a number',
+        REQUIRED: 'Age is required',
+      },
+      CITY: {
+        TYPE: 'City must be a string',
+        REQUIRED: 'City is required',
+      },
+      REGION_ID: {
+        TYPE: 'Region must be a string',
+        REQUIRED: 'Region is required',
+      },
+      REGION_OTHER: {
+        TYPE: 'Region other must be a string',
+      },
+      EMAIL: {
+        TYPE: 'Email must be a string',
+        VALID: 'Email must be valid',
+        REQUIRED: 'Email is required',
+      },
+      PHONE_NUMBER: {
+        TYPE: 'Phone number must be a string',
+        VALID: 'Phone number must be valid',
+        REQUIRED: 'Phone number is required',
+      },
     },
   },
   AUTH: {
