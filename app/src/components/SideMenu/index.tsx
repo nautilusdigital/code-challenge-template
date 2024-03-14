@@ -31,9 +31,9 @@ export const SideMenu = () => {
       <div className='flex flex-col justify-end max-h-1/4 gap-8 '>
         <User
           size="large"
-          firstName={hook.hookCacheContextState.user.name.split(' ')[0] || ''}
-          lastName={hook.hookCacheContextState.user.name.split(' ')[1] || ''}
-          description={hook.hookCacheContextState.user.email || ''}
+          firstName='Jane'
+          lastName='Cooper'
+          description='janec@gmail.com'
           additionalClasses={{
             wrapper: ['py-2'],
           }}
