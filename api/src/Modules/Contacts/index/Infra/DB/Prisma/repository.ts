@@ -15,42 +15,71 @@ export class ContactIndexPrismaRepository extends PrismaRepository implements IC
     this.client = client;
   }
 
-  async index({ userId }: ContactIndexRepositoryInputType): Promise<ContactIndexRepositoryOutputType[]> {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const result = await this.execute<any, any>(this.client.contact.findMany, {
-      where: {
-        createdBy: userId,
-      },
-      select: {
-        id: true,
-        fristName: true,
-        lastName: true,
-        age: true,
-        phone: true,
-        city: true,
-        email: true,
-        category: true,
-        regionOther: true,
-        region: {
-          select: {
-            name: true,
-            id: true,
-          },
+  async index({ firstName, lastName, phone }: ContactIndexRepositoryInputType): Promise<ContactIndexRepositoryOutputType[]> {
+    let whereQuery = {};
+    if (firstName) {
+      whereQuery = {
+        firstName: {
+          contains: firstName,
+          mode: 'insensitive',
+        },
+      };
+    }
+
+    if (lastName) {
+      whereQuery = {
+        lastName: {
+          contains: lastName,
+          mode: 'insensitive',
+        },
+      };
+    }
+    if (phone) {
+      whereQuery = {
+        phone: {
+          contains: phone,
+          mode: 'insensitive',
+        },
+      };
+    }
+
+    const selectQuery = {
+      id: true,
+      firstName: true,
+      lastName: true,
+      age: true,
+      phone: true,
+      city: true,
+      email: true,
+      category: true,
+      region: {
+        select: {
+          name: true,
+          id: true,
         },
       },
+    };
 
+    const query = Object.keys(whereQuery).length > 0 ? {
+      where: whereQuery,
+      select: selectQuery,
+    } : { select: selectQuery };
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const result = await this.execute<any, any>(this.client.contact.findMany, {
+      ...query,
     });
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return result.map((contact: any) => ({
-      email: contact.id,
+      id: contact.id,
+      email: contact.email,
       firstName: contact.firstName,
       lastName: contact.lastName,
       age: contact.age,
       phone: contact.phone,
       city: contact.city,
       region: contact.region.name,
-      regionOther: contact.regionOther,
       category: contact.category,
     }));
   }
