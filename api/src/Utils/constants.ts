@@ -34,6 +34,17 @@ export const VALIDATION_MESSAGES = {
         VALID: 'Phone number must be valid',
         REQUIRED: 'Phone number is required',
       },
+      CATEGORY: {
+        TYPE: 'category number must be a string',
+        REQUIRED: 'category is required',
+      },
+    },
+    INDEX: {
+      USER_ID: {
+        TYPE: 'User ID must be a string',
+        REQUIRED: 'User ID is required',
+        VALID: 'User ID must be valid',
+      },
     },
   },
   AUTH: {

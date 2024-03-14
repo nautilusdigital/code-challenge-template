@@ -7,6 +7,7 @@ export type ContactCreateRepositoryInputType = {
   city: string
   regionId: string
   regionOther?: string
+  category: string
 }
 
 export type ContactCreateRepositoryOutputType = {
@@ -14,5 +15,5 @@ export type ContactCreateRepositoryOutputType = {
 }
 
 export interface IContactCreateRepository {
-  index(data: ContactCreateRepositoryInputType): Promise<ContactCreateRepositoryOutputType | undefined>
+  create(data: ContactCreateRepositoryInputType): Promise<ContactCreateRepositoryOutputType | undefined>
 }

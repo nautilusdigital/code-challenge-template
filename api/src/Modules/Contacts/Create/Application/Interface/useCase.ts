@@ -7,6 +7,7 @@ export type ContactCreateUseCaseInputType = {
   city: string
   regionId: string
   regionOther?: string
+  category: string
 }
 
 export interface IContactCreateUseCase {

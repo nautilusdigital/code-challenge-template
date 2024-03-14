@@ -37,4 +37,15 @@ export const makeContactCreateYupValidator = () => yupValidatorFactory(Yup.objec
     .string()
     .typeError(VALIDATION_MESSAGES.CONTACT.CREATE.REGION_OTHER.TYPE)
     .nullable(),
+  category: Yup
+    .string()
+    .typeError(VALIDATION_MESSAGES.CONTACT.CREATE.CATEGORY.TYPE)
+    .required(VALIDATION_MESSAGES.CONTACT.CREATE.CATEGORY.REQUIRED),
+}));
+
+export const makeContactIndexYupValidator = () => yupValidatorFactory(Yup.object().shape({
+  useId: Yup
+    .string()
+    .typeError(VALIDATION_MESSAGES.CONTACT.INDEX.USER_ID.TYPE)
+    .required(VALIDATION_MESSAGES.CONTACT.INDEX.USER_ID.REQUIRED),
 }));

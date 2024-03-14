@@ -13,6 +13,6 @@ export class ContactCreateUseCase implements IContactCreateUseCase {
   }
 
   async execute(data: ContactCreateUseCaseInputType): Promise<void> {
-    await this.repository.index(data);
+    await this.repository.create(data);
   }
 }
