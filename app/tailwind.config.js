@@ -20,6 +20,7 @@ export const theme = {
       primary: {
         100: '#2648A4',
         50: '#2C5DE5',
+        40: '#126EFF',
         20: '#91ADFA',
         10: '#BFD0FD',
         5: '#D7E1FE',
