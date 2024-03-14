@@ -11,11 +11,10 @@ model Contact {
   id          String   @id(map: "contact_pk") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   firstName   String   @map("frist_name") @db.VarChar(64)
   lastName    String   @map("last_name") @db.VarChar(64)
+  category    String
   age         Int
   email       String   @unique
   phone       String
-  address     String
-  postalCode  String   @map("postal_code")
   city        String
   regionId    String   @map("region_id") @db.Uuid
   regionOther String?   @map("region_other")
@@ -30,7 +29,7 @@ model Contact {
 
 model Region {
   id     String @id(map: "region_pk") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  region String @db.VarChar(255)
+  name String @db.VarChar(255)
 
   contact Contact[]
   case    Case[]
@@ -56,13 +55,14 @@ model Case {
 
   caseAttachment CaseAttachment[]
   caseCaller     CaseCaller[]
+  user           User @relation(fields: [clientId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "client_id_fk")
 
   @@map("case")
 }
 
 model Status {
   id     String @id(map: "statuses_pk") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  status String
+  name String
 
   case Case[]
 
@@ -71,8 +71,8 @@ model Status {
 
 model CaseCaller {
   id       String @id(map: "case_callers_pk") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  caseId   String @map("case_id")
-  callerId String @map("caller_id")
+  caseId   String @map("case_id") @db.Uuid
+  callerId String @map("caller_id") @db.Uuid
 
   case   Case    @relation(fields: [caseId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "case_id_fk")
   caller Contact @relation(fields: [callerId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "caller_id_fk")
@@ -82,10 +82,20 @@ model CaseCaller {
 
 model CaseAttachment {
   id     String @id(map: "case_attachment_pk") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  caseId String @map("case_id")
+  caseId String @map("case_id") @db.Uuid
   fileName   String @map("file_name")
 
   case Case @relation(fields: [caseId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "status_id_fk")
 
   @@map("case_attachment")
+}
+
+model User {
+  id     String @id(map: "user_pk") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  name   String
+  email  String @unique
+
+  case Case[]
+
+  @@map("user")
 }

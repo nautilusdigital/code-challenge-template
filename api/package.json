@@ -6,7 +6,7 @@
   "scripts": {
     "dev:ts": "nodemon ./src/index.ts",
     "build": "rm -rf dist && tsc -p tsconfig-build.json",
-    "start": "node -r dotenv/config ./dist/index.js",
+    "start": "npx prisma migrate deploy && npx ts-node -r dotenv/config ./prisma/seeds && node -r dotenv/config ./dist/index.js",
     "test": "npx jest --passWithNoTests --no-cache --runInBand",
     "test:watch": "npx jest --passWithNoTests --no-cache --runInBand --watch",
     "test:coverage": "npx jest --passWithNoTests --no-cache --runInBand --coverage",
