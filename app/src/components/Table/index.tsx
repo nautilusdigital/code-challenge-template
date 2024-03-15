@@ -1,9 +1,8 @@
 import React from 'react';
-import { TextButton } from 'awesome-gcl';
 import { TablePropTypes } from './types';
 import { Header, Row } from './Components';
 
-export const Table = ({ headers, data }: TablePropTypes) => (
+export const Table = ({ headers, data, emptyStateMessage }: TablePropTypes) => (
   <table
     className='w-full'
   >
@@ -31,21 +30,7 @@ export const Table = ({ headers, data }: TablePropTypes) => (
         />
       )) : (
         <tr className='w-full flex item-center justify-center'>
-          <td className='flex flex-col items-center justify-center mt-[140px]'>
-            <p className='flex-grow'>No contacts yet</p>
-            <div>
-              <TextButton
-                type='button'
-                size='large'
-                theme='primary'
-                handleClick={() => console.log('TODO redirect to create contact page')}
-              >
-                Click here
-              </TextButton>
-              {' '}
-              to add your first contact.
-            </div>
-          </td>
+          {emptyStateMessage}
         </tr>
       )}
     </tbody>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Input } from 'awesome-gcl';
+import { Button, Input, TextButton } from 'awesome-gcl';
 import { AppWrapper, Table } from '../../components';
 import { useContacts } from './useLogic';
 import { PATH } from '../../utils';
@@ -17,7 +17,7 @@ export const Contacts = () => {
           type='button'
           size='large'
           theme='primary'
-          handleClick={() => console.log('TODO redirect to create contact page')}
+          handleClick={() => hook.hookNavigate(PATH.get('CREATE_CONTACT').URL)}
         >
           + New Contact
         </Button>
@@ -61,6 +61,23 @@ export const Contacts = () => {
             { id: 'region', label: 'Region' },
           ]}
           data={hook.hookContactState.contacts}
+          emptyStateMessage={(
+            <td className='flex flex-col items-center justify-center mt-[140px]'>
+              <p className='flex-grow'>No contacts yet</p>
+              <div>
+                <TextButton
+                  type='button'
+                  size='large'
+                  theme='primary'
+                  handleClick={() => hook.hookNavigate(PATH.get('CREATE_CONTACT').URL)}
+                >
+                  Click here
+                </TextButton>
+                {' '}
+                to add your first contact.
+              </div>
+            </td>
+          )}
         />
       </div>
     </AppWrapper>

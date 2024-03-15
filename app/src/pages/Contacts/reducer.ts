@@ -5,12 +5,12 @@ export const cacheInitialState = {
   contacts: [],
 };
 
-export type CacheContextActionType = { type: 'updateFirstName', data: typeof cacheInitialState['firstName'] } |
+export type ReducerActionType = { type: 'updateFirstName', data: typeof cacheInitialState['firstName'] } |
   { type: 'updateLastName', data: typeof cacheInitialState['lastName'] } |
   { type: 'updatePhoneNumber', data: typeof cacheInitialState['phoneNumber'] } |
   { type: 'updateContacts', data: typeof cacheInitialState['contacts'] };
 
-export const useReducerContact = (state: any, { type, data }: CacheContextActionType) => {
+export const useReducerContact = (state: any, { type, data }: ReducerActionType) => {
   switch (type) {
     case 'updateFirstName':
       return {
