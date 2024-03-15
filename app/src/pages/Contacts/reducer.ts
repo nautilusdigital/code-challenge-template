@@ -2,7 +2,19 @@ export const cacheInitialState = {
   firstName: '',
   lastName: '',
   phoneNumber: '',
-  contacts: [],
+  contacts: [
+    {
+      id: '',
+      category: '',
+      firstName: '',
+      lastName: '',
+      age: 0,
+      email: '',
+      phone: '',
+      city: '',
+      region: '',
+    },
+  ],
 };
 
 export type ReducerActionType = { type: 'updateFirstName', data: typeof cacheInitialState['firstName'] } |

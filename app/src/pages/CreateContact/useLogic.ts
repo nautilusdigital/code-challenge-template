@@ -36,15 +36,19 @@ export const useCreateContact = () => {
         otherRegion: createContactState.otherRegion,
       });
 
-      const response = await useFetch({
-        method: 'POST',
-        path: '/contacts',
-        body: contact,
+      // const { status, data } = await useFetch({
+      //   method: 'POST',
+      //   path: '/contacts',
+      //   body: contact,
+      // });
+      const { status, data } = await Promise.resolve({
+        status: 200,
+        data: {
+          id: 'unique id',
+        },
       });
 
-      console.log(response);
-
-      if (response.status === 200) navigate(PATH.get('CONTACT').URL);
+      if (status === 200) navigate(PATH.get('CONTACT').URL);
       else setErrorMessage('Could not create contact');
     } catch (error) {
       setErrorMessage('All fields are required.');
@@ -54,12 +58,12 @@ export const useCreateContact = () => {
 
   const getRegions = async () => {
     try {
-      const response = await useFetch({
+      const { status, data } = await useFetch({
         method: 'GET',
         path: '/utils/select-options',
       });
 
-      if (response.status === 200) createContactDispatcher({ type: 'updateRegionOptions', data: response.data.regions });
+      if (status === 200) createContactDispatcher({ type: 'updateRegionOptions', data: data.regions });
     } catch (error) {
       setErrorMessage('Could not get regions. Please try again later.');
       console.log('Failed contact creation', error);
