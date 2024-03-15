@@ -1,5 +1,7 @@
 export type ContactIndexInputType = {
-  userId: string;
+  firstName?: string
+  lastName?: string
+  phone?: string
 };
 
 export type ContactIndexOutputType = {
@@ -12,7 +14,6 @@ export type ContactIndexOutputType = {
   phone: string
   city: string
   region: string
-  regionOther: string
 };
 
 export interface IContactIndexUseCase {
