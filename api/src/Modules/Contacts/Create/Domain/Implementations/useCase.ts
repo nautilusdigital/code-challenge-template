@@ -1,5 +1,5 @@
 import { IContactCreateRepository } from '../Interface';
-import { ContactCreateUseCaseInputType, IContactCreateUseCase } from '../../Application/Interface';
+import { ContactCreateUseCaseInputType, ContactCreateUseCaseOutputType, IContactCreateUseCase } from '../../Application/Interface';
 
 type ContactCreateUseCaseConstructorType = {
   repository: IContactCreateRepository;
@@ -12,7 +12,7 @@ export class ContactCreateUseCase implements IContactCreateUseCase {
     this.repository = repository;
   }
 
-  async execute(data: ContactCreateUseCaseInputType): Promise<void> {
-    await this.repository.create(data);
+  async execute(data: ContactCreateUseCaseInputType): Promise<ContactCreateUseCaseOutputType> {
+    return this.repository.create(data);
   }
 }
