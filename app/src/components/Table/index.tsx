@@ -2,9 +2,12 @@ import React from 'react';
 import { TablePropTypes } from './types';
 import { Header, Row } from './Components';
 
-export const Table = ({ headers, data, emptyStateMessage }: TablePropTypes) => (
+export const Table = ({ headers, data, emptyStateMessage }: TablePropTypes) => {
+  const width = 100 / headers.length;
+
+  return (
   <table
-    className='w-full'
+    className='w-full '
   >
     <thead>
       <tr
@@ -15,6 +18,7 @@ export const Table = ({ headers, data, emptyStateMessage }: TablePropTypes) => (
             key={header.id}
             id={header.id}
             label={header.label}
+            width={width}
           />
         ))}
       </tr>
@@ -31,8 +35,11 @@ export const Table = ({ headers, data, emptyStateMessage }: TablePropTypes) => (
           index={index}
           headers={headers}
           row={row}
+          totalRows={data.length}
+          width={width}
         />
       )))}
     </tbody>
   </table>
-);
+  );
+};

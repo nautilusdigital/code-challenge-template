@@ -20,30 +20,15 @@ export const useCases = () => {
 
   const getCases = async () => {
     try {
-      // const { status, data } = await useFetch({
-      //   method: 'GET',
-      //   path: '/cases',
-      //   queryParams: {
-      //     firstName: caseState.firstName,
-      //     lastName: caseState.lastName,
-      //     phone: caseState.phoneNumber,
-      //     caseId: caseState.caseId,
-      //   },
-      // });
-
-      const { status, data } = await Promise.resolve({
-        status: 200,
-        data: [
-          {
-            id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
-            client: 'John Does',
-            issueType: 'youth transitioning',
-            notes: 'any note',
-            nextReviewDate: '2024-01-01',
-            createdBy: 'Hudson Smith',
-            status: 'Open',
-          },
-        ],
+      const { status, data } = await useFetch({
+        method: 'GET',
+        path: '/cases',
+        queryParams: {
+          firstName: caseState.firstName,
+          lastName: caseState.lastName,
+          phone: caseState.phoneNumber,
+          caseId: caseState.caseId,
+        },
       });
 
       if (status === 200) caseDispatcher({ type: 'updateCases', data });
@@ -55,27 +40,15 @@ export const useCases = () => {
 
   const getRegions = async () => {
     try {
-      // const { status, data } = await useFetch({
-      //   method: 'GET',
-      //   path: '/utils/select-options',
-      // });
-
-      const { status, data } = await Promise.resolve({
-        status: 200,
-        data: {
-          regions: [
-            {
-              id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
-              value: 'British Columbia',
-            },
-          ],
-        },
+      const { status, data } = await useFetch({
+        method: 'GET',
+        path: '/utils/select-options',
       });
 
       if (status === 200) {
         reportDispatcher({
           type: 'updateRegions',
-          data: data.regions.map((region) => ({
+          data: data.regions.map((region: any) => ({
             id: region.id,
             value: region.value,
           })),
@@ -95,21 +68,10 @@ export const useCases = () => {
         regionsId: reportState.regionsId.join(';'),
       });
 
-      // const { status, data } = await useFetch({
-      //   method: 'GET',
-      //   path: '/reports',
-      //   queryParams: report
-      // })
-
-      const { status, data } = await Promise.resolve({
-        status: 200,
-        data: [
-          {
-            region: 'British Columbia',
-            open: 10,
-            closed: 5,
-          },
-        ],
+      const { status, data } = await useFetch({
+        method: 'GET',
+        path: '/reports',
+        queryParams: report,
       });
 
       if (status === 200) {
