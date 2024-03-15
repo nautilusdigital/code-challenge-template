@@ -25,7 +25,7 @@ export const Table = ({ headers, data, emptyStateMessage }: TablePropTypes) => {
     </thead>
 
     <tbody>
-      { data[0].id === '' || data.length === 0 ? (
+      { data !== undefined && (data[0]?.id === '' || data.length === 0) ? (
         <tr className='w-full flex item-center justify-center'>
           {emptyStateMessage}
         </tr>

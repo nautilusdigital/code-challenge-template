@@ -136,7 +136,7 @@ export const Cases = () => {
         >
           Select Report Period
         </label>
-        <div className='w-full flex items-center justify-between gap-8'>
+        <div className='w-full flex items-center justify-between gap-8 mb-4'>
           <input
             id='dateRange'
             type='date'
@@ -166,12 +166,12 @@ export const Cases = () => {
         >
           Select Report Period
         </label>
-        <div className='grid grid-cols-2 justify-items-start'>
+        <div className='grid grid-cols-2 justify-items-start mt-2 gap-4'>
           {hook.hookReportState.regions.map((region: any) => (
             <Checkbox
               key={region.id}
               label={region.value}
-              checked={hook.hookReportState.regionsId === region.id}
+              checked={hook.hookReportState.regionsId?.find((item: any) => item === region.id)}
               size='medium'
               handleClick={() => hook.hookReportDispatcher({
                 type: 'updateRegionsId',

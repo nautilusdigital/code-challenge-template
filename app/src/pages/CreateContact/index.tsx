@@ -115,7 +115,7 @@ export const CreateContact = () => {
         placeholder='Select Region'
         options={hook.hookCreateContactState.regionOptions}
       />
-      {hook.hookCreateContactState.region.label === 'Other' && (
+      {hook.hookCreateContactState.region.label === 'Outside of BC' && (
         <Input
           type='text'
           size='large'

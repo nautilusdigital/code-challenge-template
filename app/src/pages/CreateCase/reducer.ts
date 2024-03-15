@@ -35,7 +35,8 @@ export const cacheInitialState = {
     label: '',
     value: '',
   }],
-  attachments: [],
+  attachments: undefined,
+  attachmentNames: [],
   notes: '',
   reviewDate: '',
 };
@@ -46,7 +47,8 @@ export type ReducerActionType = { type: 'updateCaller', data: typeof cacheInitia
   { type: 'updateIssueType', data: typeof cacheInitialState['issueType'] } |
   { type: 'updateRegion', data: typeof cacheInitialState['region'] } |
   { type: 'updateRegionOptions', data: typeof cacheInitialState['regionOptions'] } |
-  { type: 'updateAttachments', data: string[] } |
+  { type: 'updateAttachments', data: FormData } |
+  { type: 'updateAttachmentNames', data: string[] } |
   { type: 'updateNotes', data: typeof cacheInitialState['notes'] } |
   { type: 'updateReviewDate', data: typeof cacheInitialState['reviewDate'] };
 
@@ -86,6 +88,11 @@ export const useReducerCreateCase = (state: any, { type, data }: ReducerActionTy
       return {
         ...state,
         attachments: data,
+      };
+    case 'updateAttachmentNames':
+      return {
+        ...state,
+        attachmentNames: data,
       };
     case 'updateNotes':
       return {
