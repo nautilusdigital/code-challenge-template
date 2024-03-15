@@ -48,6 +48,10 @@ export const useContacts = () => {
     getContacts();
   }, []);
 
+  useEffect(() => {
+    getContacts();
+  }, [contactState.firstName, contactState.lastName, contactState.phoneNumber]);
+
   return {
     hookContactState: contactState,
     hookContactDispatcher: contactDispatcher,
