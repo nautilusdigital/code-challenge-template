@@ -47,6 +47,42 @@ export const VALIDATION_MESSAGES = {
       },
     },
   },
+  CASE: {
+    CREATE: {
+      CLIENT_ID: {
+        TYPE: 'Client ID must be a string',
+        REQUIRED: 'Client ID is required',
+      },
+      CALLER_ID: {
+        TYPE: 'Caller ID must be a string',
+        REQUIRED: 'Caller ID is required',
+      },
+      USER_ID: {
+        TYPE: 'User ID must be a string',
+        REQUIRED: 'User ID is required',
+      },
+      ISSUE_TYPE: {
+        TYPE: 'Issue Type must be a string',
+        REQUIRED: 'Issue Type is required',
+      },
+      REGION_ID: {
+        TYPE: 'Region ID must be a string',
+        REQUIRED: 'Region is required',
+      },
+      FILE_NAMES: {
+        TYPE: 'File names must be an array',
+        REQUIRED: 'File names is required',
+      },
+      NOTES: {
+        TYPE: 'Notes must be a string',
+        REQUIRED: 'Notes is required',
+      },
+      REVIEW_DATE: {
+        TYPE: 'Review date must be a string',
+        REQUIRED: 'Review date is required',
+      },
+    },
+  },
   AUTH: {
     EMAIL: {
       TYPE: 'Email must be a string',
