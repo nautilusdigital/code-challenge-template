@@ -8,7 +8,7 @@ export const useContacts = () => {
   const [contactState, contactDispatcher] = useReducer(useReducerContact, cacheInitialState);
 
   const getContacts = async () => {
-    // const response = await useFetch({
+    // const { status, data } = await useFetch({
     //   method: 'GET',
     //   path: '/contact',
     // queryParams: {

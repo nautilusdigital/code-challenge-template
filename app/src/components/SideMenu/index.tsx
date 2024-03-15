@@ -1,8 +1,5 @@
 import React from 'react';
-import {
-  Figure,
-  User,
-} from 'awesome-gcl';
+import { User } from 'awesome-gcl';
 import { useSideMenu } from './useLogic';
 import { PATH } from '../../utils';
 
@@ -24,13 +21,12 @@ export const SideMenu = () => {
             key={index}
             className={`flex items-center justify-start gap-3 rounded-md py-3 px-4 font-semibold text-sm text-grayscale-100 ${window.location.href.includes(page.URL) ? 'bg-grayscale-0' : 'bg-transparent'}`}
           >
-            <Figure
-              src={page.ICON}
-              alt={page.TITLE}
-              additionalClasses={{
-                figure: ['w-[24px] h-[24px]'],
-              }}
-            />
+            <figure>
+              <img
+                src={page.ICON}
+                alt={page.TITLE}
+              />
+            </figure>
             {page.TITLE}
           </a>
         ))}

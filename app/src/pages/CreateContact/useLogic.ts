@@ -41,7 +41,7 @@ export const useCreateContact = () => {
       //   path: '/contacts',
       //   body: contact,
       // });
-      const { status, data } = await Promise.resolve({
+      const { status } = await Promise.resolve({
         status: 200,
         data: {
           id: 'unique id',

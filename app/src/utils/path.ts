@@ -14,3 +14,16 @@ PATH.set('CREATE_CONTACT', {
   TITLE: 'Create Contact',
   HIDDEN: true,
 });
+
+PATH.set('CASES', {
+  URL: '/cases',
+  TITLE: 'Cases',
+  ICON: ICONS.get('CASES_ICON').SRC,
+  HIDDEN: false,
+});
+
+PATH.set('CREATE_CASE', {
+  URL: '/cases/create',
+  TITLE: 'Create Case',
+  HIDDEN: true,
+});

@@ -4,7 +4,7 @@ import {
   Navigate,
 } from 'react-router-dom';
 import { CacheProvider } from './context';
-import { Contacts, CreateContact } from './pages';
+import { Cases, Contacts, CreateContact } from './pages';
 import { PATH } from './utils';
 
 const Layout = () => (
@@ -23,6 +23,10 @@ const router = createBrowserRouter(
       <Route
         path={PATH.get('CREATE_CONTACT').URL}
         element={<CreateContact />}
+      />
+      <Route
+        path={PATH.get('CASES').URL}
+        element={<Cases />}
       />
       <Route
         path='*'

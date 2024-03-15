@@ -63,7 +63,7 @@ export const Contacts = () => {
           data={hook.hookContactState.contacts}
           emptyStateMessage={(
             <td className='flex flex-col items-center justify-center mt-[140px]'>
-              <p className='flex-grow'>No contacts yet</p>
+              <p className='font-bold'>No contacts yet</p>
               <div>
                 <TextButton
                   type='button'
