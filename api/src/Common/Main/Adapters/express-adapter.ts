@@ -13,7 +13,7 @@ type AdapterFunctionType = (controller: Controller) => RequestHandler;
  */
 export const expressAdapter: AdapterFunctionType = (controller) => async (req, res) => {
   const { data, error } = await controller.execute({
-    ...req.body, ...req.params, ...req.query,
+    ...req.body, ...req.params, ...req.query, ...req.locals,
   });
 
   if (error === undefined) {

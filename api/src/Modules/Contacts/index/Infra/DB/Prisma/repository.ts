@@ -2,14 +2,14 @@ import { PrismaClient } from '@prisma/client';
 import { PrismaRepository } from '../../../../../../Common/Infra/DB/Prisma';
 import { ContactIndexRepositoryInputType, ContactIndexRepositoryOutputType, IContactIndexRepository } from '../../../Domain/Interface';
 
-type AuthPrismaRepositoryConstructorType = {
+type ContactIndexPrismaRepositoryConstructorType = {
   client: PrismaClient;
 }
 
 export class ContactIndexPrismaRepository extends PrismaRepository implements IContactIndexRepository {
   private readonly client: PrismaClient;
 
-  constructor({ client }: AuthPrismaRepositoryConstructorType) {
+  constructor({ client }: ContactIndexPrismaRepositoryConstructorType) {
     super();
 
     this.client = client;
@@ -52,6 +52,7 @@ export class ContactIndexPrismaRepository extends PrismaRepository implements IC
       city: true,
       email: true,
       category: true,
+      createdAt: true,
       region: {
         select: {
           name: true,

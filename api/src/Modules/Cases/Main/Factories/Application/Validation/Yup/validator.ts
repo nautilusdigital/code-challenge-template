@@ -37,3 +37,18 @@ export const makeCaseCreateYupValidator = () => yupValidatorFactory(Yup.object()
     .typeError(VALIDATION_MESSAGES.CASE.CREATE.REVIEW_DATE.TYPE)
     .required(VALIDATION_MESSAGES.CASE.CREATE.REVIEW_DATE.REQUIRED),
 }));
+
+export const makCaseIndexYupValidator = () => yupValidatorFactory(Yup.object().shape({
+  firstName: Yup
+    .string()
+    .typeError(VALIDATION_MESSAGES.CASE.INDEX.FIRST_NAME.TYPE),
+  lastName: Yup
+    .string()
+    .typeError(VALIDATION_MESSAGES.CASE.INDEX.LAST_NAME.TYPE),
+  caseId: Yup
+    .string()
+    .typeError(VALIDATION_MESSAGES.CASE.INDEX.CASE_ID.TYPE),
+  phone: Yup
+    .string()
+    .typeError(VALIDATION_MESSAGES.CASE.INDEX.PHONE_NUMBER.TYPE),
+}));
