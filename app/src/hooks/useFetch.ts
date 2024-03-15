@@ -3,21 +3,25 @@ import { ENVIRONMENT } from '../config/environment';
 type UseFetchPropTypes = {
   method: 'POST' | 'GET' | 'DELETE' | 'PUT' | 'PATCH'
   path: string
+  queryParams?: Record<string, string>
   body?: Record<string, any>
   headers?: Record<string, any>
 }
 
 export const useFetch = async ({
-  method, path, body, headers,
+  method, path, queryParams, body, headers,
 }: UseFetchPropTypes) => {
   try {
     let newBody = body;
+    let queryString = '';
+
+    if (queryParams) queryString = `?${new URLSearchParams(queryParams).toString()}`;
 
     if (method === 'GET' || method === 'DELETE') {
       newBody = undefined;
     }
 
-    const res = await fetch(`${ENVIRONMENT.API.BASE_URL}/v1${path}`, {
+    const res = await fetch(`${ENVIRONMENT.API.BASE_URL}/v1${path}${queryString}`, {
       method,
       headers: new Headers({
         'content-type': 'application/json',
