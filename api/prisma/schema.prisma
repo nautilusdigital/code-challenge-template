@@ -22,7 +22,8 @@ model Contact {
 
   region Region @relation(fields: [regionId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "region_id_fk")
 
-  caseCaller CaseCaller[]
+  caseClient Case[] @relation(name: "client")
+  caseCaller Case[] @relation(name: "caller")
 
   @@map("contact")
 }
@@ -40,11 +41,12 @@ model Region {
 model Case {
   id        String @id(map: "cases_pk") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   clientId  String @map("client_id") @db.Uuid
+  callerId  String @map("caller_id") @db.Uuid
   regionId  String @map("region_id") @db.Uuid
   issueType String @map("issue_type") @db.Uuid
   notes     String
   statusId  String @map("status_id") @db.Uuid
-
+  userId    String @map("user_id") @db.Uuid
   reviewDate DateTime @map("review_date") @db.Date
   closedDate DateTime @map("closed_date") @db.Date
   createdAt  DateTime @default(dbgenerated("CURRENT_DATE")) @map("created_at") @db.Date
@@ -54,8 +56,9 @@ model Case {
   region Region @relation(fields: [regionId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "region_id_fk")
 
   caseAttachment CaseAttachment[]
-  caseCaller     CaseCaller[]
-  user           User @relation(fields: [clientId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "client_id_fk")
+  client         Contact @relation(name: "client", fields: [clientId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "client_id_fk")
+  caller         Contact @relation(name: "caller", fields: [callerId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "caller_id_fk")
+  user           User @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "user_id_fk")
 
   @@map("case")
 }
@@ -67,17 +70,6 @@ model Status {
   case Case[]
 
   @@map("status")
-}
-
-model CaseCaller {
-  id       String @id(map: "case_callers_pk") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  caseId   String @map("case_id") @db.Uuid
-  callerId String @map("caller_id") @db.Uuid
-
-  case   Case    @relation(fields: [caseId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "case_id_fk")
-  caller Contact @relation(fields: [callerId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "caller_id_fk")
-
-  @@map("case_caller")
 }
 
 model CaseAttachment {
