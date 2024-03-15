@@ -1,21 +1,26 @@
-import { PrismaClient } from '@prisma/client';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable no-plusplus */
+import {
+  PrismaClient,
+} from '@prisma/client';
+import { faker } from '@faker-js/faker';
 
-function getRandomRegionId(regions: { id: string }[]) {
-  const randomIndex = Math.floor(Math.random() * regions.length);
-  return regions[randomIndex].id;
+function getRandomId(arr: { id: string }[]) {
+  const randomIndex = Math.floor(Math.random() * arr.length);
+  return arr[randomIndex].id;
 }
 
 const prisma = new PrismaClient();
 
 async function main() {
+  await prisma.caseAttachment.deleteMany();
+  await prisma.case.deleteMany();
+  await prisma.contact.deleteMany();
+
   await Promise.all([
     prisma.user.deleteMany(),
     prisma.region.deleteMany(),
-    prisma.contact.deleteMany(),
-    prisma.case.deleteMany(),
     prisma.status.deleteMany(),
-    prisma.caseAttachment.deleteMany(),
-    prisma.caseCaller.deleteMany(),
   ]);
 
   await Promise.all([
@@ -69,7 +74,6 @@ async function main() {
   ]);
 
   const regions = await prisma.region.findMany();
-  console.log('🚀 ~ main ~ regions:', regions);
 
   await prisma.contact.createMany({
     data: [
@@ -82,7 +86,7 @@ async function main() {
         email: 'john.doe@example.com',
         phone: '+1234567890',
         city: 'Anytown',
-        regionId: getRandomRegionId(regions),
+        regionId: getRandomId(regions),
         regionOther: null,
         createdAt: '2024-03-14T12:00:00Z',
       },
@@ -95,7 +99,7 @@ async function main() {
         email: 'jane.smith@example.com',
         phone: '+1987654321',
         city: 'Smalltown',
-        regionId: getRandomRegionId(regions),
+        regionId: getRandomId(regions),
         regionOther: null,
         createdAt: '2024-03-14T12:00:00Z',
       },
@@ -108,7 +112,7 @@ async function main() {
         email: 'emily.johnson@example.com',
         phone: '+1122334455',
         city: 'Metroville',
-        regionId: getRandomRegionId(regions),
+        regionId: getRandomId(regions),
         regionOther: null,
         createdAt: '2024-03-14T12:00:00Z',
       },
@@ -121,7 +125,7 @@ async function main() {
         email: 'michael.brown@example.com',
         phone: '+3344556677',
         city: 'Rivertown',
-        regionId: getRandomRegionId(regions),
+        regionId: getRandomId(regions),
         regionOther: null,
         createdAt: '2024-03-14T12:00:00Z',
       },
@@ -134,7 +138,7 @@ async function main() {
         email: 'sophia.martinez@example.com',
         phone: '+9988776655',
         city: 'Villageton',
-        regionId: getRandomRegionId(regions),
+        regionId: getRandomId(regions),
         regionOther: null,
         createdAt: '2024-03-14T12:00:00Z',
       },
@@ -147,7 +151,7 @@ async function main() {
         email: 'william.taylor@example.com',
         phone: '+5566778899',
         city: 'Greenville',
-        regionId: getRandomRegionId(regions),
+        regionId: getRandomId(regions),
         regionOther: null,
         createdAt: '2024-03-14T12:00:00Z',
       },
@@ -160,11 +164,51 @@ async function main() {
         email: 'olivia.rodriguez@example.com',
         phone: '+1122334455',
         city: 'Harbortown',
-        regionId: getRandomRegionId(regions),
+        regionId: getRandomId(regions),
         regionOther: null,
         createdAt: '2024-03-14T12:00:00Z',
       },
     ],
+  });
+
+  const [contacts, status, users] = await Promise.all([
+    prisma.contact.findMany(),
+    prisma.status.findMany(),
+    prisma.user.findMany(),
+  ]);
+
+  const cases: any[] = [];
+
+  for (let i = 0; i <= 400; i++) {
+    cases.push({
+      callerId: getRandomId(contacts),
+      clientId: getRandomId(contacts),
+      userId: getRandomId(users),
+      statusId: getRandomId(status),
+      reviewDate: faker.date.between({ to: '2024-03-14', from: '2023-11-01' }),
+      issueType: faker.helpers.arrayElement([
+        'Youth transitioning',
+        'Funding',
+        'Mental health',
+        'Guardianship',
+        'Self-determination',
+        'Rural',
+        'Indigenous',
+        'Aging',
+        'Housing',
+        'Eligibility',
+        'Assessment',
+        'Service delivery',
+        'Disability benefits',
+      ]),
+      notes: faker.lorem.paragraph(),
+      regionId: getRandomId(regions),
+      createdAt: faker.date.between({ to: '2024-03-14', from: '2023-11-01' }),
+    });
+  }
+
+  await prisma.case.createMany({
+    data: cases,
   });
 }
 
