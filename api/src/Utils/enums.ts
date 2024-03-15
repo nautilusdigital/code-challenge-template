@@ -9,6 +9,7 @@ export const ERROR_CODES = {
   DATABASE: 'E02000',
   VALIDATION: 'E04000',
   TOKEN_VALIDATION: 'E05000',
+  FILE_UPLOAD: 'E06000',
 };
 
 export const ERROR_MESSAGES = {
