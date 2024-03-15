@@ -252,4 +252,18 @@ export const VALIDATION_MESSAGES = {
       },
     },
   },
+  REPORT: {
+    REGION_ID: {
+      TYPE: 'Region id must be a string',
+      VALID: 'Region id must be valid uuid',
+    },
+    startDate: {
+      TYPE: 'Start date must be a string',
+      REQUIRED: 'Start date id is required',
+    },
+    endDate: {
+      TYPE: 'End date must be a string',
+      REQUIRED: 'End date id is required',
+    },
+  },
 };
