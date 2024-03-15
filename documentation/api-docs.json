@@ -518,8 +518,11 @@
                     "type": "integer",
                     "format": "uuid"
                   },
-                  "fileName": {
-                    "type": "string"
+                  "fileNames": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
                   },
                   "notes": {
                     "type": "string"
@@ -654,23 +657,11 @@
         }
       }
     },
-    "/cases/{caseId}/attachment": {
+    "/cases/attachment": {
       "post": {
         "tags": ["cases"],
         "summary": "Upload case attachment",
         "description": "Upload case attachment",
-        "parameters": [
-          {
-            "name": "caseId",
-            "in": "path",
-            "description": "Case ID",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
         "requestBody": {
           "content": {
             "multipart/form-data": {
@@ -711,9 +702,7 @@
                 },
                 "examples": {
                   "Case created": {
-                    "value": {
-                      "filename": ["file.jpg"]
-                    }
+                    "value": ["file.jpg"]
                   }
                 }
               }
@@ -804,12 +793,31 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "caseId": {
-                      "type": "string",
-                      "format": "uuid"
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "region": {
+                        "type": "string"
+                      },
+                      "open": {
+                        "type": "integer"
+                      },
+                      "closed": {
+                        "type": "integer"
+                      }
                     }
+                  }
+                },
+                "examples": {
+                  "Report values": {
+                    "value": [
+                      {
+                        "region": "British Columbia",
+                        "open": 10,
+                        "closed": 5
+                      }
+                    ]
                   }
                 }
               }
