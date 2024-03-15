@@ -43,14 +43,14 @@ model Case {
   clientId  String @map("client_id") @db.Uuid
   callerId  String @map("caller_id") @db.Uuid
   regionId  String @map("region_id") @db.Uuid
-  issueType String @map("issue_type") @db.Uuid
+  issueType String @map("issue_type")
   notes     String
   statusId  String @map("status_id") @db.Uuid
   userId    String @map("user_id") @db.Uuid
   reviewDate DateTime @map("review_date") @db.Date
-  closedDate DateTime @map("closed_date") @db.Date
+  closedDate DateTime? @map("closed_date") @db.Date
   createdAt  DateTime @default(dbgenerated("CURRENT_DATE")) @map("created_at") @db.Date
-  updatedAt  DateTime @map("updated_at") @db.Date
+  updatedAt  DateTime @updatedAt @map("updated_at") @db.Date
 
   status Status @relation(fields: [statusId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "status_id_fk")
   region Region @relation(fields: [regionId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "region_id_fk")

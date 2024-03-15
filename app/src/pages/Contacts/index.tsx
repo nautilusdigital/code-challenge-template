@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Input, TextButton } from 'awesome-gcl';
-import { AppWrapper, Table } from '../../components';
+import { AppWrapper, ErrorMessage, Table } from '../../components';
 import { useContacts } from './useLogic';
 import { PATH } from '../../utils';
 
@@ -22,6 +22,11 @@ export const Contacts = () => {
           + New Contact
         </Button>
       </header>
+
+      {hook.hookErrorMessage && (
+        <ErrorMessage message={hook.hookErrorMessage} />
+      )}
+
       <div className="w-full flex flex-col items-start justify-start gap-8">
         <div className='flex items-center justify-start gap-4'>
           <Input
@@ -63,7 +68,7 @@ export const Contacts = () => {
           data={hook.hookContactState.contacts}
           emptyStateMessage={(
             <td className='flex flex-col items-center justify-center mt-[140px]'>
-              <p className='flex-grow'>No contacts yet</p>
+              <p className='font-bold'>No contacts yet</p>
               <div>
                 <TextButton
                   type='button'
