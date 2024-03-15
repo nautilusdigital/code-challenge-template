@@ -67,6 +67,7 @@ export const Cases = () => {
             { id: 'id', label: 'Case ID' },
             { id: 'client', label: 'Client' },
             { id: 'issueType', label: 'Issue Types' },
+            { id: 'createdBy', label: 'Created By' },
             { id: 'notes', label: 'Notes' },
             { id: 'nextReviewDate', label: 'Next Review Date' },
             { id: 'status', label: 'Status' },

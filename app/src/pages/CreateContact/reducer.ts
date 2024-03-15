@@ -15,7 +15,13 @@ export const cacheInitialState = {
     value: '',
   },
   regionOther: '',
-  regionOptions: [],
+  regionOptions: [
+    {
+      id: '',
+      label: '',
+      value: '',
+    },
+  ],
 };
 
 export type ReducerActionType = { type: 'updateCategory', data: typeof cacheInitialState['category'] } |

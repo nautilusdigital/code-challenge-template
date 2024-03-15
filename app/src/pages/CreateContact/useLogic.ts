@@ -58,12 +58,33 @@ export const useCreateContact = () => {
 
   const getRegions = async () => {
     try {
-      const { status, data } = await useFetch({
-        method: 'GET',
-        path: '/utils/select-options',
+      // const { status, data } = await useFetch({
+      //   method: 'GET',
+      //   path: '/utils/select-options',
+      // });
+
+      const { status, data } = await Promise.resolve({
+        status: 200,
+        data: {
+          regions: [
+            {
+              id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
+              value: 'British Columbia',
+            },
+          ],
+        },
       });
 
-      if (status === 200) createContactDispatcher({ type: 'updateRegionOptions', data: data.regions });
+      if (status === 200) {
+        createContactDispatcher({
+          type: 'updateRegionOptions',
+          data: data.regions.map((region) => ({
+            id: region.id,
+            label: region.value,
+            value: region.value,
+          })),
+        });
+      }
     } catch (error) {
       setErrorMessage('Could not get regions. Please try again later.');
       console.log('Failed contact creation', error);
