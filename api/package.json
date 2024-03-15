@@ -10,7 +10,8 @@
     "test": "npx jest --passWithNoTests --no-cache --runInBand",
     "test:watch": "npx jest --passWithNoTests --no-cache --runInBand --watch",
     "test:coverage": "npx jest --passWithNoTests --no-cache --runInBand --coverage",
-    "restore:deps": "npm ci"
+    "restore:deps": "npm ci",
+    "prisma:seed": "ts-node ./prisma/seeds"
   },
   "keywords": [],
   "author": "",
