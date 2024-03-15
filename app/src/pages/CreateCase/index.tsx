@@ -63,7 +63,60 @@ export const CreateCase = () => {
             },
           })}
           placeholder='Select'
-          options={[]}
+          options={[
+            {
+              label: 'Youth Transitioning',
+              value: 'Youth Transitioning',
+            },
+            {
+              label: 'Funding',
+              value: 'Funding',
+            },
+            {
+              label: 'Mental Health',
+              value: 'Mental Health',
+            },
+            {
+              label: 'Guardianship',
+              value: 'Guardianship',
+            },
+            {
+              label: 'Self-Determination',
+              value: 'Self-Determination',
+            },
+            {
+              label: 'Rural',
+              value: 'Rural',
+            },
+            {
+              label: 'Indigenous',
+              value: 'Indigenous',
+            },
+            {
+              label: 'Aging',
+              value: 'Aging',
+            },
+            {
+              label: 'Housing',
+              value: 'Housing',
+            },
+            {
+              label: 'Eligibility',
+              value: 'Eligibility',
+            },
+            {
+              label: 'Assessment',
+              value: 'Assessment',
+            },
+            {
+              label: 'Service Delivery',
+              value: 'Service Delivery',
+            },
+            {
+              label: 'Disability Benefits',
+              value: 'Disability Benefits',
+            },
+          ]}
         />
         <Select
           size='medium'
