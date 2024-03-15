@@ -1,5 +1,4 @@
 import { PrismaClient } from '@prisma/client';
-import { randomUUID } from 'node:crypto';
 import { PrismaRepository } from '../../../../../../Common/Infra/DB/Prisma';
 import {
   CaseCreateRepositoryInputType, CaseCreateRepositoryOutputType, ICaseCreateRepository,
@@ -31,15 +30,11 @@ export class CaseCreatePrismaRepository extends PrismaRepository implements ICas
       },
     });
 
-    console.log(status);
-
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const result = await this.execute<any, any>(this.client.case.create, {
       data: {
         ...rest,
         reviewDate: new Date(data.reviewDate),
-        // closedDate: new Date('2024-01-03'),
-        // updatedAt: new Date().toISOString(),
         statusId: status.id,
       },
     });
@@ -49,7 +44,7 @@ export class CaseCreatePrismaRepository extends PrismaRepository implements ICas
       fileName,
     }));
 
-    this.client.caseAttachment.createMany({
+    await this.client.caseAttachment.createMany({
       data: files,
     });
 

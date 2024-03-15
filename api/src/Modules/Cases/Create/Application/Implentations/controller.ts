@@ -16,7 +16,7 @@ export class CaseCreateController extends Controller {
     this.useCase = useCase;
   }
 
-  async perform(request: Record<string, unknown>): Promise<void> {
-    await this.useCase.execute(request as never);
+  async perform(request: Record<string, unknown>): Promise<unknown> {
+    return this.useCase.execute(request as never);
   }
 }
