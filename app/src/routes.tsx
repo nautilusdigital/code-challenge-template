@@ -4,7 +4,7 @@ import {
   Navigate,
 } from 'react-router-dom';
 import { CacheProvider } from './context';
-import { Contacts } from './pages';
+import { Contacts, CreateContact } from './pages';
 import { PATH } from './utils';
 
 const Layout = () => (
@@ -19,6 +19,10 @@ const router = createBrowserRouter(
       <Route
         path={PATH.get('CONTACT').URL}
         element={<Contacts />}
+      />
+      <Route
+        path={PATH.get('CREATE_CONTACT').URL}
+        element={<CreateContact />}
       />
       <Route
         path='*'
