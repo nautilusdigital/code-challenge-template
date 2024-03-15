@@ -38,8 +38,8 @@ export class CaseCreatePrismaRepository extends PrismaRepository implements ICas
       data: {
         ...rest,
         reviewDate: new Date(data.reviewDate),
-        closedDate: new Date('2024-01-03'),
-        updatedAt: new Date().toISOString(),
+        // closedDate: new Date('2024-01-03'),
+        // updatedAt: new Date().toISOString(),
         statusId: status.id,
       },
     });
