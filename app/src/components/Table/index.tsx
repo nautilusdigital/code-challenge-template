@@ -21,18 +21,18 @@ export const Table = ({ headers, data, emptyStateMessage }: TablePropTypes) => (
     </thead>
 
     <tbody>
-      {data.length > 0 ? data.map((row, index) => (
+      { data[0].id === '' || data.length === 0 ? (
+        <tr className='w-full flex item-center justify-center'>
+          {emptyStateMessage}
+        </tr>
+      ) : (data.map((row, index) => (
         <Row
           key={index}
           index={index}
           headers={headers}
           row={row}
         />
-      )) : (
-        <tr className='w-full flex item-center justify-center'>
-          {emptyStateMessage}
-        </tr>
-      )}
+      )))}
     </tbody>
   </table>
 );
