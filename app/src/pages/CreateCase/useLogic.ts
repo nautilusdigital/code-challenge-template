@@ -111,7 +111,7 @@ export const useCreateCase = () => {
         clientId: createCaseState.client.id,
         callerId: createCaseState.caller.id,
         userId: hookCacheContextState.user.id,
-        issueTypeId: createCaseState.issueType.id,
+        issueType: createCaseState.issueType.value,
         regionid: createCaseState.region.id,
         fileNames: createCaseState.attachments,
         notes: createCaseState.notes,
