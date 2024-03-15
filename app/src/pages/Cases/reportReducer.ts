@@ -16,7 +16,7 @@ export const reportCacheInitialState = {
   isOpen: false,
   startDate: dateThreeMonthsAgo().threeMonthsAgoFormat,
   endDate: dateThreeMonthsAgo().todayFormat,
-  regionsId: '',
+  regionsId: [],
   regions: [
     {
       id: '',
@@ -28,7 +28,7 @@ export const reportCacheInitialState = {
 export type ReducerActionType = { type: 'updateStartDate', data: typeof reportCacheInitialState['startDate'] } |
   { type: 'updateEndDate', data: typeof reportCacheInitialState['endDate'] } |
   { type: 'updateIsOpen', data: typeof reportCacheInitialState['isOpen'] } |
-  { type: 'updateRegionsId', data: typeof reportCacheInitialState['regionsId'] } |
+  { type: 'updateRegionsId', data: string } |
   { type: 'updateRegions', data: typeof reportCacheInitialState['regions'] };
 
 export const useReducerReport = (state: any, { type, data }: ReducerActionType) => {
@@ -58,6 +58,17 @@ export const useReducerReport = (state: any, { type, data }: ReducerActionType) 
         endDate: data,
       };
     case 'updateRegionsId':
+      if (state.regionsId.includes(data)) {
+        return {
+          ...state,
+          regionsId: state.regionsId.filter((regionId: string) => regionId !== data),
+        };
+      }
+      return {
+        ...state,
+        regionsId: [...state.regionsId, data],
+      };
+
       return {
         ...state,
         regionsId: data,

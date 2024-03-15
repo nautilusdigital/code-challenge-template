@@ -89,7 +89,11 @@ export const useCases = () => {
 
   const generateReport = async () => {
     try {
-      const report = await reportSchema.validate(reportState);
+      const report = await reportSchema.validate({
+        startDate: reportState.startDate,
+        endDate: reportState.endDate,
+        regionsId: reportState.regionsId.join(';'),
+      });
 
       // const { status, data } = await useFetch({
       //   method: 'GET',
