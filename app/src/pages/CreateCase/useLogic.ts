@@ -10,7 +10,7 @@ const createCaseSchema = object({
   userId: string().required('User is required'),
   issueTypeId: string().required('Issue Type is required'),
   regionid: string().required('Region is required'),
-  fileNames: array().of(string()).required('Attachments are required'),
+  fileNames: array().of(string()),
   notes: string().required('Notes are required'),
   nextReviewDate: string(),
 });
