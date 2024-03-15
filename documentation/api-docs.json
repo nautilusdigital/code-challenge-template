@@ -1,0 +1,1108 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "STR Challenge",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "description": "Localhost",
+      "url": "http://localhost:8080/v1"
+    }
+  ],
+  "tags": [
+    {
+      "name": "contacts",
+      "description": "Contacts routes"
+    },
+    {
+      "name": "cases",
+      "description": "Cases routes"
+    },
+    {
+      "name": "reports",
+      "description": "Reports routes"
+    },
+    {
+      "name": "users",
+      "description": "User routes"
+    },
+    {
+      "name": "utils",
+      "description": "User routes"
+    }
+  ],
+  "paths": {
+    "/contacts": {
+      "get": {
+        "tags": ["contacts"],
+        "summary": "Get contacts",
+        "description": "Get all contacts",
+        "parameters": [
+          {
+            "name": "firstName",
+            "in": "query",
+            "description": "Contact first name",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "John"
+            }
+          },
+          {
+            "name": "lastName",
+            "in": "query",
+            "description": "Contact last name",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "Doe"
+            }
+          },
+          {
+            "name": "phone",
+            "in": "query",
+            "description": "Contact phone number",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "+17777777777"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "category": {
+                        "type": "string"
+                      },
+                      "firstName": {
+                        "type": "string"
+                      },
+                      "lastName": {
+                        "type": "string"
+                      },
+                      "age": {
+                        "type": "integer"
+                      },
+                      "email": {
+                        "type": "string"
+                      },
+                      "phone": {
+                        "type": "number"
+                      },
+                      "city": {
+                        "type": "boolean"
+                      },
+                      "region": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "Contacts list": {
+                    "value": [
+                      {
+                        "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                        "category": "Family",
+                        "firstName": "John",
+                        "lastName": "Doe",
+                        "age": 30,
+                        "email": "john@doe.com",
+                        "phone": "+17777777777",
+                        "city": "Vancouver",
+                        "region": "British Columbia"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Infrastructure error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "code"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "engine": {
+                      "type": "string"
+                    },
+                    "engineCode": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "Database errors": {
+                    "value": {
+                      "name": "DatabaseError",
+                      "code": "E02000",
+                      "engine": "prisma",
+                      "engineCode": "Pxxxx"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["contacts"],
+        "summary": "Create contact",
+        "description": "Create a new contact",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "firstName": {
+                    "type": "string"
+                  },
+                  "lastName": {
+                    "type": "string"
+                  },
+                  "category": {
+                    "type": "string"
+                  },
+                  "age": {
+                    "type": "integer"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "phone": {
+                    "type": "string"
+                  },
+                  "city": {
+                    "type": "string"
+                  },
+                  "regionId": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "regionOther": {
+                    "type": "string"
+                  }
+                }
+              },
+              "examples": {
+                "Created User with regionId": {
+                  "value": {
+                    "firstName": "John",
+                    "lastName": "Doe",
+                    "category": "Family",
+                    "age": 30,
+                    "email": "john@doe.com",
+                    "phone": "+17777777777",
+                    "city": "Vancouver",
+                    "regionId": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+                  }
+                },
+                "Created User with other region": {
+                  "value": {
+                    "firstName": "John",
+                    "lastName": "Doe",
+                    "category": "Family",
+                    "age": 30,
+                    "email": "john@doe.com",
+                    "phone": "+17777777777",
+                    "city": "Vancouver",
+                    "regionId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                    "regionOther": "United States"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    }
+                  }
+                },
+                "examples": {
+                  "Contact create": {
+                    "value": {
+                      "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Client errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["name", "code"],
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "errorFields": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": ["path", "message"],
+                        "properties": {
+                          "path": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "Invalid user/password": {
+                    "value": {
+                      "name": "BadRequestError",
+                      "code": "E00200"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Infrastructure error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "code"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "engine": {
+                      "type": "string"
+                    },
+                    "engineCode": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "Database errors": {
+                    "value": {
+                      "name": "DatabaseError",
+                      "code": "E02000",
+                      "engine": "prisma",
+                      "engineCode": "Pxxxx"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cases": {
+      "get": {
+        "tags": ["cases"],
+        "summary": "Get cases",
+        "description": "Get all cases",
+        "parameters": [
+          {
+            "name": "firstName",
+            "in": "query",
+            "description": "Contact first name",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "John"
+            }
+          },
+          {
+            "name": "lastName",
+            "in": "query",
+            "description": "Contact last name",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "Doe"
+            }
+          },
+          {
+            "name": "phone",
+            "in": "query",
+            "description": "Contact phone number",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "+17777777777"
+            }
+          },
+          {
+            "name": "caseId",
+            "in": "query",
+            "description": "Case ID",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "client": {
+                        "type": "string"
+                      },
+                      "issueType": {
+                        "type": "string"
+                      },
+                      "attachment": {
+                        "type": "string"
+                      },
+                      "notes": {
+                        "type": "string"
+                      },
+                      "nextReviewDate": {
+                        "type": "string"
+                      },
+                      "createdBy": {
+                        "type": "string"
+                      },
+                      "status": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "Cases list": {
+                    "value": [
+                      {
+                        "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                        "client": "John Does",
+                        "issueType": "youth transitioning",
+                        "attachment": "http://localhost:8080/v1/cases/3fa85f64-5717-4562-b3fc-2c963f66afa6/attachment",
+                        "notes": "any note",
+                        "nextReviewDate": "2024-01-01",
+                        "createdBy": "Hudson Smith",
+                        "status": "Open"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Infrastructure error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "code"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "engine": {
+                      "type": "string"
+                    },
+                    "engineCode": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "Database errors": {
+                    "value": {
+                      "name": "DatabaseError",
+                      "code": "E02000",
+                      "engine": "prisma",
+                      "engineCode": "Pxxxx"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["cases"],
+        "summary": "Create case",
+        "description": "Create a new case",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "callerId": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "clientId": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "userId": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "issueType": {
+                    "type": "string"
+                  },
+                  "regionId": {
+                    "type": "integer",
+                    "format": "uuid"
+                  },
+                  "fileName": {
+                    "type": "string"
+                  },
+                  "notes": {
+                    "type": "string"
+                  },
+                  "nextReviewDate": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "statusId": {
+                    "type": "string",
+                    "format": "uuid"
+                  }
+                }
+              },
+              "examples": {
+                "Created case": {
+                  "value": {
+                    "clientId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                    "callerId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                    "userId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                    "issueType": "Youth transitioning",
+                    "regionId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                    "fileName": "file.pdf",
+                    "notes": "any note",
+                    "nextReviewDate": "2024-01-01",
+                    "statusId": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    }
+                  }
+                },
+                "examples": {
+                  "Case created": {
+                    "value": {
+                      "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Client errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["name", "code"],
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "errorFields": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": ["path", "message"],
+                        "properties": {
+                          "path": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "Invalid user/password": {
+                    "value": {
+                      "name": "BadRequestError",
+                      "code": "E00200"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Infrastructure error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "code"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "engine": {
+                      "type": "string"
+                    },
+                    "engineCode": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "Database errors": {
+                    "value": {
+                      "name": "DatabaseError",
+                      "code": "E02000",
+                      "engine": "prisma",
+                      "engineCode": "Pxxxx"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cases/{caseId}/attachment": {
+      "get": {
+        "tags": ["cases"],
+        "summary": "Get case attachment",
+        "description": "Get case attachment",
+        "parameters": [
+          {
+            "name": "caseId",
+            "in": "path",
+            "description": "Case ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "attachment": {
+                      "type": "string",
+                      "format": "byte",
+                      "description": "Base64 encoded attachment"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Infrastructure error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "code"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "engine": {
+                      "type": "string"
+                    },
+                    "engineCode": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "Database errors": {
+                    "value": {
+                      "name": "DatabaseError",
+                      "code": "E02000",
+                      "engine": "prisma",
+                      "engineCode": "Pxxxx"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["cases"],
+        "summary": "Upload case attachment",
+        "description": "Upload case attachment",
+        "parameters": [
+          {
+            "name": "caseId",
+            "in": "path",
+            "description": "Case ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "filename": {
+                      "type": "string",
+                      "format": "file.jpg"
+                    }
+                  }
+                },
+                "examples": {
+                  "Case created": {
+                    "value": {
+                      "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Infrastructure error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "code"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "engine": {
+                      "type": "string"
+                    },
+                    "engineCode": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "Database errors": {
+                    "value": {
+                      "name": "DatabaseError",
+                      "code": "E02000",
+                      "engine": "prisma",
+                      "engineCode": "Pxxxx"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/reports/": {
+      "get": {
+        "tags": ["reports"],
+        "summary": "Generate report",
+        "description": "Generate report",
+        "parameters": [
+          {
+            "name": "startDate",
+            "in": "query",
+            "description": "Report start date",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "description": "Report end date",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "regionsId",
+            "in": "query",
+            "description": "Report region ID list",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6;3fa85f64-5717-4562-b3fc-2c963f66afa6"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "caseId": {
+                      "type": "string",
+                      "format": "uuid"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Infrastructure error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "code"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "engine": {
+                      "type": "string"
+                    },
+                    "engineCode": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "Database errors": {
+                    "value": {
+                      "name": "DatabaseError",
+                      "code": "E02000",
+                      "engine": "prisma",
+                      "engineCode": "Pxxxx"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users": {
+      "get": {
+        "tags": ["users"],
+        "summary": "Get user",
+        "description": "Get user",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "email": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "Contacts list": {
+                    "value": [
+                      {
+                        "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                        "name": "Hudson Smith",
+                        "email": "hudson.smith@org.com"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Infrastructure error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "code"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "engine": {
+                      "type": "string"
+                    },
+                    "engineCode": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "Database errors": {
+                    "value": {
+                      "name": "DatabaseError",
+                      "code": "E02000",
+                      "engine": "prisma",
+                      "engineCode": "Pxxxx"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/utils/select-options": {
+      "get": {
+        "tags": ["utils"],
+        "summary": "Get select options",
+        "description": "Get all platform select options",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "regions": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "format": "uuid"
+                          },
+                          "name": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    "statuses": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "format": "uuid"
+                          },
+                          "name": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "Success": {
+                    "value": {
+                      "regions": [
+                        {
+                          "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                          "value": "British Columbia"
+                        }
+                      ],
+                      "statuses": [
+                        {
+                          "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                          "value": "open"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Infrastructure error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "code"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "engine": {
+                      "type": "string"
+                    },
+                    "engineCode": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "Database errors": {
+                    "value": {
+                      "name": "DatabaseError",
+                      "code": "E02000",
+                      "engine": "prisma",
+                      "engineCode": "Pxxxx"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
