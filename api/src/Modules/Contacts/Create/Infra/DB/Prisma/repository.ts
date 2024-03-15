@@ -17,14 +17,12 @@ export class ContactCreatePrismaRepository extends PrismaRepository implements I
     this.client = client;
   }
 
-  async create(data: ContactCreateRepositoryInputType): Promise<ContactCreateRepositoryOutputType | undefined> {
+  async create(data: ContactCreateRepositoryInputType): Promise<ContactCreateRepositoryOutputType> {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const result = await this.execute<any, any>(this.client.contact.create, {
       data,
     });
 
-    return result === null ? undefined : {
-      id: result.id,
-    };
+    return { id: result.id };
   }
 }

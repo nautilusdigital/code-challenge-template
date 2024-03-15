@@ -15,5 +15,5 @@ export type ContactCreateRepositoryOutputType = {
 }
 
 export interface IContactCreateRepository {
-  create(data: ContactCreateRepositoryInputType): Promise<ContactCreateRepositoryOutputType | undefined>
+  create(data: ContactCreateRepositoryInputType): Promise<ContactCreateRepositoryOutputType>
 }
