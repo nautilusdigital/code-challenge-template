@@ -46,7 +46,7 @@ export const useCreateContact = () => {
       else setErrorMessage('Could not create contact');
     } catch (error) {
       setErrorMessage('All fields are required.');
-      console.log('Failed contact creation', error);
+      console.error('Failed contact creation', error);
     }
   };
 
@@ -69,7 +69,7 @@ export const useCreateContact = () => {
       }
     } catch (error) {
       setErrorMessage('Could not get regions. Please try again later.');
-      console.log('Failed contact creation', error);
+      console.error('Failed contact creation', error);
     }
   };
 

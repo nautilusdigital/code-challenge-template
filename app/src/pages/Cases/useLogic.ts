@@ -56,7 +56,7 @@ export const useCases = () => {
       }
     } catch (error) {
       setErrorMessage('Could not get regions. Please try again later.');
-      console.log('Failed contact creation', error);
+      console.error('Failed contact creation', error);
     }
   };
 
