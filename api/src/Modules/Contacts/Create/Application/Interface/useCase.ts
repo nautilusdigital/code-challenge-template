@@ -10,6 +10,10 @@ export type ContactCreateUseCaseInputType = {
   category: string
 }
 
+export type ContactCreateUseCaseOutputType = {
+  id: string
+}
+
 export interface IContactCreateUseCase {
-  execute(data: ContactCreateUseCaseInputType): Promise<void>
+  execute(data: ContactCreateUseCaseInputType): Promise<ContactCreateUseCaseOutputType>
 }

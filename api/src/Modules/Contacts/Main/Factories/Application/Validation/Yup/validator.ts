@@ -46,6 +46,6 @@ export const makeContactCreateYupValidator = () => yupValidatorFactory(Yup.objec
 export const makeContactIndexYupValidator = () => yupValidatorFactory(Yup.object().shape({
   useId: Yup
     .string()
-    .typeError(VALIDATION_MESSAGES.CONTACT.INDEX.USER_ID.TYPE)
-    .required(VALIDATION_MESSAGES.CONTACT.INDEX.USER_ID.REQUIRED),
+    .typeError(VALIDATION_MESSAGES.CONTACT.INDEX.USER_ID.TYPE),
+  // .required(VALIDATION_MESSAGES.CONTACT.INDEX.USER_ID.REQUIRED),
 }));

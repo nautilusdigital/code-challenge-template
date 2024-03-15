@@ -1,5 +1,7 @@
 export type ContactIndexRepositoryInputType = {
-  userId: string
+  firstName?: string
+  lastName?: string
+  phone?: string
 }
 
 export type ContactIndexRepositoryOutputType = {
@@ -12,7 +14,6 @@ export type ContactIndexRepositoryOutputType = {
   phone: string
   city: string
   region: string
-  regionOther: string
 }
 
 export interface IContactIndexRepository {
