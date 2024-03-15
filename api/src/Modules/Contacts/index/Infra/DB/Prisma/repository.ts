@@ -17,7 +17,7 @@ export class ContactIndexPrismaRepository extends PrismaRepository implements IC
 
   async index({ firstName, lastName, phone }: ContactIndexRepositoryInputType): Promise<ContactIndexRepositoryOutputType[]> {
     let whereQuery = {};
-    if (firstName) {
+    if (firstName && firstName !== undefined) {
       whereQuery = {
         firstName: {
           contains: firstName,
@@ -26,7 +26,7 @@ export class ContactIndexPrismaRepository extends PrismaRepository implements IC
       };
     }
 
-    if (lastName) {
+    if (lastName && firstName !== undefined) {
       whereQuery = {
         lastName: {
           contains: lastName,
@@ -34,7 +34,7 @@ export class ContactIndexPrismaRepository extends PrismaRepository implements IC
         },
       };
     }
-    if (phone) {
+    if (phone && firstName !== undefined) {
       whereQuery = {
         phone: {
           contains: phone,

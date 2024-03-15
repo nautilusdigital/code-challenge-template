@@ -23,34 +23,19 @@ export const useCreateCase = () => {
 
   const getContacts = async () => {
     try {
-      // const { status, data } = await useFetch({
-      //   method: 'GET',
-      //   path: '/contacts',
-      // });
-
-      const { status, data } = await Promise.resolve({
-        status: 200,
-        data: [
-          {
-            id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
-            category: 'Family',
-            firstName: 'John',
-            lastName: 'Doe',
-            age: 30,
-            email: 'john@doe.com',
-            phone: '+17777777777',
-            city: 'Vancouver',
-            region: 'British Columbia',
-          },
-        ],
+      const { status, data } = await useFetch({
+        method: 'GET',
+        path: '/contact',
       });
 
       if (status === 200) {
         createCaseDispatcher({
           type: 'updateContactOptions',
-          data: data.map((option) => ({
+          data: data.map((option: any) => ({
             id: option.id,
             name: `${option.firstName} ${option.lastName}`,
+            label: `${option.firstName} ${option.lastName}`,
+            value: `${option.firstName} ${option.lastName}`,
           })),
         });
       }
@@ -62,27 +47,15 @@ export const useCreateCase = () => {
 
   const getRegions = async () => {
     try {
-      // const { status, data } = await useFetch({
-      //   method: 'GET',
-      //   path: '/utils/select-options',
-      // });
-
-      const { status, data } = await Promise.resolve({
-        status: 200,
-        data: {
-          regions: [
-            {
-              id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
-              value: 'British Columbia',
-            },
-          ],
-        },
+      const { status, data } = await useFetch({
+        method: 'GET',
+        path: '/utils/select-options',
       });
 
       if (status === 200) {
         createCaseDispatcher({
           type: 'updateRegionOptions',
-          data: data.regions.map((region) => ({
+          data: data.regions.map((region: any) => ({
             id: region.id,
             label: region.value,
             value: region.value,
@@ -115,15 +88,15 @@ export const useCreateCase = () => {
 
   const uploadAttachments = async () => {
     try {
-      // const { status } = await useFetch({
-      //   method: 'POST',
-      //   path: '/cases/attachments',
-      //   body: createCaseState.attachments,
-      // });
-
-      const { status } = await Promise.resolve({
-        status: 201,
+      const { status } = await useFetch({
+        method: 'POST',
+        path: '/cases/attachments',
+        body: createCaseState.attachments,
       });
+
+      // const { status } = await Promise.resolve({
+      //   status: 201,
+      // });
 
       if (status !== 201) setErrorMessage('Could not upload attachments');
     } catch (error) {
@@ -145,25 +118,25 @@ export const useCreateCase = () => {
         nextReviewDate: createCaseState.reviewDate,
       });
 
-      // const { status, data } = await useFetch({
-      //   method: 'POST',
-      //   path: '/cases',
-      //   body: caseObject,
-      // });
-
-      const { status, data } = await Promise.resolve({
-        status: 200,
-        data: {
-          clientId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
-          callerId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
-          userId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
-          issueType: 'Youth transitioning',
-          regionId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
-          fileName: 'file.pdf',
-          notes: 'any note',
-          nextReviewDate: '2024-01-01',
-        },
+      const { status, data } = await useFetch({
+        method: 'POST',
+        path: '/cases',
+        body: caseObject,
       });
+
+      // const { status, data } = await Promise.resolve({
+      //   status: 200,
+      //   data: {
+      //     clientId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
+      //     callerId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
+      //     userId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
+      //     issueType: 'Youth transitioning',
+      //     regionId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
+      //     fileName: 'file.pdf',
+      //     notes: 'any note',
+      //     nextReviewDate: '2024-01-01',
+      //   },
+      // });
 
       if (status === 200) {
         navigate('/cases');

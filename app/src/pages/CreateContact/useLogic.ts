@@ -1,6 +1,6 @@
 import { useEffect, useReducer, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { object, string } from 'yup';
+import { number, object, string } from 'yup';
 import { cacheInitialState, useReducerCreateContact } from './reducer';
 import { PATH } from '../../utils';
 import { useFetch } from '../../hooks';
@@ -9,7 +9,7 @@ const createContactSchema = object({
   category: string().required('Category is required'),
   firstName: string().required('First Name is required'),
   lastName: string().required('Last Name is required'),
-  age: string().required('Age is required'),
+  age: number().required('Age is required'),
   email: string().required('Email is required'),
   phone: string().required('Phone is required'),
   city: string().required('City is required'),
@@ -36,16 +36,10 @@ export const useCreateContact = () => {
         otherRegion: createContactState.otherRegion,
       });
 
-      // const { status, data } = await useFetch({
-      //   method: 'POST',
-      //   path: '/contacts',
-      //   body: contact,
-      // });
-      const { status } = await Promise.resolve({
-        status: 200,
-        data: {
-          id: 'unique id',
-        },
+      const { status } = await useFetch({
+        method: 'POST',
+        path: '/contact',
+        body: contact,
       });
 
       if (status === 200) navigate(PATH.get('CONTACT').URL);
@@ -58,27 +52,15 @@ export const useCreateContact = () => {
 
   const getRegions = async () => {
     try {
-      // const { status, data } = await useFetch({
-      //   method: 'GET',
-      //   path: '/utils/select-options',
-      // });
-
-      const { status, data } = await Promise.resolve({
-        status: 200,
-        data: {
-          regions: [
-            {
-              id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
-              value: 'British Columbia',
-            },
-          ],
-        },
+      const { status, data } = await useFetch({
+        method: 'GET',
+        path: '/utils/select-options',
       });
 
       if (status === 200) {
         createContactDispatcher({
           type: 'updateRegionOptions',
-          data: data.regions.map((region) => ({
+          data: data.regions.map((region: any) => ({
             id: region.id,
             label: region.value,
             value: region.value,
