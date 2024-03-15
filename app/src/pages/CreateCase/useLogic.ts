@@ -64,7 +64,7 @@ export const useCreateCase = () => {
       }
     } catch (error) {
       setErrorMessage('Could not get regions. Please try again later.');
-      console.log('Failed contact creation', error);
+      console.error('Failed contact creation', error);
     }
   };
 
@@ -94,10 +94,6 @@ export const useCreateCase = () => {
         body: createCaseState.attachments,
       });
 
-      // const { status } = await Promise.resolve({
-      //   status: 201,
-      // });
-
       if (status !== 201) setErrorMessage('Could not upload attachments');
     } catch (error) {
       setErrorMessage('Could not upload attachments');
@@ -111,7 +107,7 @@ export const useCreateCase = () => {
         clientId: createCaseState.client.id,
         callerId: createCaseState.caller.id,
         userId: hookCacheContextState.user.id,
-        issueTypeId: createCaseState.issueType.id,
+        issueType: createCaseState.issueType.value,
         regionid: createCaseState.region.id,
         fileNames: createCaseState.attachments,
         notes: createCaseState.notes,
@@ -123,20 +119,6 @@ export const useCreateCase = () => {
         path: '/cases',
         body: caseObject,
       });
-
-      // const { status, data } = await Promise.resolve({
-      //   status: 200,
-      //   data: {
-      //     clientId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
-      //     callerId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
-      //     userId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
-      //     issueType: 'Youth transitioning',
-      //     regionId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
-      //     fileName: 'file.pdf',
-      //     notes: 'any note',
-      //     nextReviewDate: '2024-01-01',
-      //   },
-      // });
 
       if (status === 200) {
         navigate('/cases');
