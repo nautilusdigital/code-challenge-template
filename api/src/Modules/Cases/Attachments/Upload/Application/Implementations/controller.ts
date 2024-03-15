@@ -22,6 +22,7 @@ export class CaseAttachmentUploadController extends Controller {
   }
 
   async perform(request: RequestType): Promise<unknown> {
+    console.log('request', request);
     return this.useCase.execute({ files: request.files });
   }
 }

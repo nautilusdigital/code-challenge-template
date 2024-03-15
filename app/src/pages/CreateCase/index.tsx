@@ -142,12 +142,12 @@ export const CreateCase = () => {
             >
               Choose File
             </label>
-            {hook.hookCreateCaseState.attachments.map((attachment: any, index: number) => (
+            {Array.from(hook.hookCreateCaseState.attachments === undefined ? [] : hook.hookCreateCaseState.attachments.getAll('attachment')).map((attachment: any, index: number) => (
               <p
                 key={index}
                 className='rounded-full bg-grayscale-0 px-3 py-2 text-grayscale-100 text-xs'
               >
-                {attachment}
+                {attachment.name}
               </p>
             ))}
             <input
@@ -156,6 +156,7 @@ export const CreateCase = () => {
               id="attachments"
               onChange={(event: React.ChangeEvent<HTMLInputElement>) => hook.hookCreateAttachments(event)}
               className='opacity-0 absolute -top-1 hidden'
+              multiple
             />
           </div>
           <Button
@@ -221,7 +222,7 @@ export const CreateCase = () => {
             theme='primary'
             handleClick={hook.hookCreateCase}
           >
-            Create Contact
+            Create Case
           </Button>
         </div>
       </div>

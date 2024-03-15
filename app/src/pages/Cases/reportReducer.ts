@@ -40,7 +40,7 @@ export const useReducerReport = (state: any, { type, data }: ReducerActionType) 
           isOpen: data,
           startDate: dateThreeMonthsAgo().threeMonthsAgoFormat,
           endDate: dateThreeMonthsAgo().todayFormat,
-          regionsId: '',
+          regionsId: [],
         };
       }
       return {
@@ -67,11 +67,6 @@ export const useReducerReport = (state: any, { type, data }: ReducerActionType) 
       return {
         ...state,
         regionsId: [...state.regionsId, data],
-      };
-
-      return {
-        ...state,
-        regionsId: data,
       };
     case 'updateRegions':
       return {

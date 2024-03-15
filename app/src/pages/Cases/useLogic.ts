@@ -9,7 +9,7 @@ import { createCSV, downloadCSV } from '../../utils';
 const reportSchema = object({
   startDate: string().required('Start date is required'),
   endDate: string().required('End date is required'),
-  regionsId: string().required('Region is required'),
+  regionsId: string(),
 });
 
 export const useCases = () => {
@@ -22,7 +22,7 @@ export const useCases = () => {
     try {
       const { status, data } = await useFetch({
         method: 'GET',
-        path: '/cases',
+        path: '/case',
         queryParams: {
           firstName: caseState.firstName,
           lastName: caseState.lastName,
@@ -31,7 +31,15 @@ export const useCases = () => {
         },
       });
 
-      if (status === 200) caseDispatcher({ type: 'updateCases', data });
+      if (status === 200) {
+        caseDispatcher({
+          type: 'updateCases',
+          data: data.map((item: any) => ({
+            ...item,
+            nextReviewDate: new Date(item.nextReviewDate).toDateString(),
+          })),
+        });
+      }
     } catch (error) {
       setErrorMessage('Could not get cases. Please try again later.');
       console.error('Failed to get cases', error);
@@ -90,6 +98,10 @@ export const useCases = () => {
     getCases();
     getRegions();
   }, []);
+
+  useEffect(() => {
+    getCases();
+  }, [caseState.firstName, caseState.lastName, caseState.phoneNumber, caseState.caseId]);
 
   useEffect(() => {
     setErrorMessage('');

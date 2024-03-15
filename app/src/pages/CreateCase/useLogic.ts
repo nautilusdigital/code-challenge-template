@@ -8,8 +8,8 @@ const createCaseSchema = object({
   clientId: string().required('Client is required'),
   callerId: string().required('Caller is required'),
   userId: string().required('User is required'),
-  issueTypeId: string().required('Issue Type is required'),
-  regionid: string().required('Region is required'),
+  issueType: string().required('Issue Type is required'),
+  regionId: string().required('Region is required'),
   fileNames: array().of(string()),
   notes: string().required('Notes are required'),
   nextReviewDate: string(),
@@ -74,27 +74,33 @@ export const useCreateCase = () => {
 
       const formData = new FormData();
       Array.from(files).forEach((file) => {
-        formData.append('atta{chment', file);
-        createCaseDispatcher({
-          type: 'updateAttachments',
-          data: [
-            ...createCaseState.attachments,
-            file.name,
-          ],
-        });
+        formData.append('attachment', file);
+      });
+
+      createCaseDispatcher({
+        type: 'updateAttachments',
+        data: formData,
       });
     }
   };
 
   const uploadAttachments = async () => {
     try {
-      const { status } = await useFetch({
+      const response = await fetch('http://localhost:8080/v1/case/attachments', {
         method: 'POST',
-        path: '/cases/attachments',
         body: createCaseState.attachments,
       });
 
-      if (status !== 201) setErrorMessage('Could not upload attachments');
+      const attach = await response.json();
+
+      if (response.status !== 200) {
+        setErrorMessage('Could not upload attachments');
+      } else {
+        createCaseDispatcher({
+          type: 'updateAttachmentNames',
+          data: attach,
+        });
+      }
     } catch (error) {
       setErrorMessage('Could not upload attachments');
       console.error('Failed to upload attachments', error);
@@ -108,15 +114,15 @@ export const useCreateCase = () => {
         callerId: createCaseState.caller.id,
         userId: hookCacheContextState.user.id,
         issueType: createCaseState.issueType.value,
-        regionid: createCaseState.region.id,
-        fileNames: createCaseState.attachments,
+        regionId: createCaseState.region.id,
+        fileNames: createCaseState.attachmentNames,
         notes: createCaseState.notes,
-        nextReviewDate: createCaseState.reviewDate,
+        reviewDate: createCaseState.reviewDate,
       });
 
-      const { status, data } = await useFetch({
+      const { status } = await useFetch({
         method: 'POST',
-        path: '/cases',
+        path: '/case',
         body: caseObject,
       });
 

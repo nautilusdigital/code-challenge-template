@@ -85,7 +85,7 @@ export const useReducerCreateContact = (state: any, { type, data }: ReducerActio
     case 'updateRegionOther':
       return {
         ...state,
-        outsideRegion: data,
+        regionOther: data,
       };
     default:
       return { ...state };
