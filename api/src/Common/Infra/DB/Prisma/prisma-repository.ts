@@ -43,6 +43,7 @@ export abstract class PrismaRepository {
       return result;
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
+      console.log('error -->', error);
       if (this.shouldRetry(error)) {
         this.retryCount += 1;
         return this.execute(action, args);

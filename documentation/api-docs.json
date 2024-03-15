@@ -33,7 +33,7 @@
     }
   ],
   "paths": {
-    "/contacts": {
+    "/contact": {
       "get": {
         "tags": ["contacts"],
         "summary": "Get contacts",
@@ -348,7 +348,7 @@
         }
       }
     },
-    "/cases": {
+    "/case": {
       "get": {
         "tags": ["cases"],
         "summary": "Get cases",
@@ -657,7 +657,7 @@
         }
       }
     },
-    "/cases/attachment": {
+    "/case/attachment": {
       "post": {
         "tags": ["cases"],
         "summary": "Upload case attachment",
@@ -864,7 +864,7 @@
         }
       }
     },
-    "/users": {
+    "/user": {
       "get": {
         "tags": ["users"],
         "summary": "Get user",
