@@ -9,7 +9,7 @@ export const Row = ({
         <td
           key={header.id}
           className={'flex items-center justify-start flex-grow text-grayscale-100'}
-          style={{ width: `${width}%` }}
+          style={{ width: `${width}%`, overflowWrap: 'anywhere' }}
         >
           {row[header.id]}
         </td>
