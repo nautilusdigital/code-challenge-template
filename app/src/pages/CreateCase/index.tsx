@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Input, Select } from 'awesome-gcl';
+import { Button, Select } from 'awesome-gcl';
 import { AppWrapper, ErrorMessage } from '../../components';
 import { PATH } from '../../utils';
 import { useCreateCase } from './useLogic';
@@ -158,7 +158,7 @@ export const CreateCase = () => {
           type='button'
           size='large'
           theme='tertiary'
-          handleClick={() => hook.hookNavigate(PATH.get('CONTACT').URL)}
+          handleClick={() => hook.hookNavigate(PATH.get('CASES').URL)}
         >
           Cancel
         </Button>
