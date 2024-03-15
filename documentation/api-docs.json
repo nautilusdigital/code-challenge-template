@@ -415,9 +415,6 @@
                       "issueType": {
                         "type": "string"
                       },
-                      "attachment": {
-                        "type": "string"
-                      },
                       "notes": {
                         "type": "string"
                       },
@@ -530,10 +527,6 @@
                   "nextReviewDate": {
                     "type": "string",
                     "format": "date"
-                  },
-                  "statusId": {
-                    "type": "string",
-                    "format": "uuid"
                   }
                 }
               },
@@ -547,8 +540,7 @@
                     "regionId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
                     "fileName": "file.pdf",
                     "notes": "any note",
-                    "nextReviewDate": "2024-01-01",
-                    "statusId": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+                    "nextReviewDate": "2024-01-01"
                   }
                 }
               }
@@ -663,80 +655,6 @@
       }
     },
     "/cases/{caseId}/attachment": {
-      "get": {
-        "tags": ["cases"],
-        "summary": "Get case attachment",
-        "description": "Get case attachment",
-        "parameters": [
-          {
-            "name": "caseId",
-            "in": "path",
-            "description": "Case ID",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "attachment": {
-                      "type": "string",
-                      "format": "byte",
-                      "description": "Base64 encoded attachment"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Infrastructure error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "required": [
-                    "name",
-                    "code"
-                  ],
-                  "properties": {
-                    "name": {
-                      "type": "string"
-                    },
-                    "code": {
-                      "type": "string"
-                    },
-                    "engine": {
-                      "type": "string"
-                    },
-                    "engineCode": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "examples": {
-                  "Database errors": {
-                    "value": {
-                      "name": "DatabaseError",
-                      "code": "E02000",
-                      "engine": "prisma",
-                      "engineCode": "Pxxxx"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
       "post": {
         "tags": ["cases"],
         "summary": "Upload case attachment",
@@ -753,6 +671,28 @@
             }
           }
         ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "attachment": {
+                    "type": "string",
+                    "format": "bynary"
+                  }
+                }
+              },
+              "examples": {
+                "Attachment": {
+                  "value": {
+                    "attachment": "file.jpg"
+                  }
+                }
+              }
+            }
+          }
+        },
         "responses": {
           "201": {
             "description": "Success",
@@ -762,15 +702,17 @@
                   "type": "object",
                   "properties": {
                     "filename": {
-                      "type": "string",
-                      "format": "file.jpg"
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
                     }
                   }
                 },
                 "examples": {
                   "Case created": {
                     "value": {
-                      "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+                      "filename": ["file.jpg"]
                     }
                   }
                 }
