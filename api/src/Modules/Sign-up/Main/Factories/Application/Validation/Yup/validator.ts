@@ -21,4 +21,8 @@ export const makeSignUpYupValidator = () => yupValidatorFactory(Yup.object().sha
     .string()
     .typeError(VALIDATION_MESSAGES.SIGN_UP.PASSWORD.TYPE)
     .required(VALIDATION_MESSAGES.SIGN_UP.PASSWORD.REQUIRED),
+  userType: Yup
+    .string()
+    .typeError(VALIDATION_MESSAGES.SIGN_UP.USER_TYPE.TYPE)
+    .required(VALIDATION_MESSAGES.SIGN_UP.USER_TYPE.REQUIRED),
 }));

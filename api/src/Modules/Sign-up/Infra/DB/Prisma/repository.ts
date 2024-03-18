@@ -4,6 +4,7 @@ import { PrismaClient } from '@prisma/client';
 import { PrismaRepository } from '../../../../../Common/Infra/DB/Prisma';
 import { ISignUpRepository, SignUpOperationType } from '../../../Domain/Interfaces';
 import { NotFoundError } from '../../../../../Common/Domain/Errors';
+import { ERROR_CODES, ERROR_MESSAGES } from '../../../../../Utils';
 
 type SignUpPrismaRepositoryConstructorType = {
   client: PrismaClient;
@@ -21,11 +22,11 @@ export class SignUpPrismaRepository extends PrismaRepository implements ISignUpR
   async signUp(data: SignUpOperationType): Promise<void> {
     const userType = await this.execute<any, any>(this.client.userType.findFirst, {
       where: {
-        name: 'applicant',
+        name: data.userType,
       },
     });
 
-    if (!userType) throw new NotFoundError('User type not found', 'E02001');
+    if (!userType) throw new NotFoundError(ERROR_MESSAGES.NOT_FOUND.USER_TYPE, ERROR_CODES.NOT_FOUND.USER_TYPE);
 
     await this.execute<any, any>(this.client.user.create, {
       data: {

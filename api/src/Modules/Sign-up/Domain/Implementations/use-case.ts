@@ -1,6 +1,6 @@
 import { hash } from 'bcrypt';
 
-import { ISignUpUseCase, SignUpUseCaseType } from '../../Application/Interfaces';
+import { ISignUpUseCase, SignUpUseCaseInputType } from '../../Application/Interfaces';
 import { ISignUpRepository } from '../Interfaces';
 
 type SignUpUseCaseConstructorType = {
@@ -14,7 +14,7 @@ export class SignUpUseCase implements ISignUpUseCase {
     this.repository = repository;
   }
 
-  async execute(data: SignUpUseCaseType): Promise<void> {
+  async execute(data: SignUpUseCaseInputType): Promise<void> {
     const passwordHash = await hash(data.password, 10);
 
     await this.repository.signUp({

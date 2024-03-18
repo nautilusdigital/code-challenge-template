@@ -1,14 +1,11 @@
-export type SignUpUseCaseType = {
+export type SignUpUseCaseInputType = {
   firstName: string
   lastName: string
   email: string
   password: string
-  address: string
-  unitNumber?: string
-  postalCode: string
-  phoneNumber: string
+  userType: string
 }
 
 export interface ISignUpUseCase {
-  execute(data: SignUpUseCaseType): Promise<void>
+  execute(data: SignUpUseCaseInputType): Promise<void>
 }

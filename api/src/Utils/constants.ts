@@ -17,6 +17,10 @@ export const VALIDATION_MESSAGES = {
       TYPE: 'Password must be a string',
       REQUIRED: 'Password is required',
     },
+    USER_TYPE: {
+      TYPE: 'User Type must be a string',
+      REQUIRED: 'User Type is required',
+    },
   },
   AUTH: {
     EMAIL: {

@@ -3,10 +3,7 @@ export type SignUpOperationType = {
   lastName: string
   email: string
   password: string
-  address: string
-  unitNumber?: string
-  postalCode: string
-  phoneNumber: string
+  userType: string
 }
 
 export interface ISignUpRepository {

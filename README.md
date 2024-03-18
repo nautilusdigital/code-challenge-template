@@ -21,7 +21,7 @@
 # Technology Stack
 
 1. Front-end:
-   - The front-end is built with TypeScript using `ReactJS`. The `Google Maps API` is used for maps and related functionality. `Jest` is used for testing.
+   - The front-end is built with TypeScript using `ReactJS`. `Jest` is used for testing.
 2. Back-end:
    - The backend is built with `TypeScript` using `NodeJS`. It uses `ExpressJS` for routing and `Prisma` as an Object Relational Mapper (ORM) for the database. `Yup` is used for validation. Testing is achieved through `Jest` and it uses `JSON Web Tokens` for authentication. The `awesome-rtk` library is built and managed by Convergence.
 3. Database:
