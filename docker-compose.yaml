@@ -20,7 +20,6 @@ services:
       timeout: 5s
       retries: 5
 
-
   api:
     build:
       context: ./api
@@ -46,6 +45,8 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
+    command: >
+      sh -c "npx prisma migrate deploy && npm run prisma:seed && npm run dev:ts"
     networks:
       - challenge
 
@@ -56,7 +57,7 @@ services:
     volumes:
       - ./app:/usr/src/app
     ports:
-      - '3000:80'
+      - '3000:3000'
     depends_on:
       - api
     networks:

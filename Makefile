@@ -13,7 +13,7 @@ down:
 .PHONY: frontend
 frontend:
 	cd app && npm run start
-	
+
 
 .PHONY: backend
 backend: down
@@ -21,7 +21,10 @@ backend: down
 	cd api && \
 		npm run restore:deps && \
 		npx prisma generate && \
+		npx prisma migrate dev && \
+		npm run prisma:seed && \
 		npm run dev:ts
+
 
 .PHONY: mock
 mock: down
@@ -29,6 +32,7 @@ mock: down
 	cd mockServer && \
 		npm run restore:deps && \
 		npm run dev
+
 
 .PHONY: prod
 prod: down build
