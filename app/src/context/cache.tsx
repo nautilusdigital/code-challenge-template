@@ -25,9 +25,6 @@ export const CacheProvider = ({ children }: Readonly<CacheProviderPropTypes>) =>
     dispatcherHandler: cacheDispatcher,
   }), [cacheState]);
 
-  useEffect(() => {
-    console.log('RELOAD CONTEXT FILE', stateMemoed.state);
-  }, [stateMemoed.state]);
   return (
     <CacheContext.Provider value={stateMemoed}>
       {children}

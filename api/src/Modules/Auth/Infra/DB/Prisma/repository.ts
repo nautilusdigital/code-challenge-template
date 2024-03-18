@@ -24,18 +24,14 @@ export class AuthPrismaRepository extends PrismaRepository implements IAuthRepos
       },
       select: {
         id: true,
+        firstName: true,
+        lastName: true,
         password: true,
         email: true,
         createdAt: true,
         userType: {
           select: {
             name: true,
-          },
-        },
-        userDetails: {
-          select: {
-            firstName: true,
-            lastName: true,
           },
         },
       },
@@ -46,7 +42,7 @@ export class AuthPrismaRepository extends PrismaRepository implements IAuthRepos
       email: result.email,
       password: result.password,
       userType: result.userType.name,
-      name: `${result.userDetails.firstName} ${result.userDetails.lastName}`,
+      name: `${result.firstName} ${result.lastName}`,
       createdAt: result.createdAt,
     };
   }

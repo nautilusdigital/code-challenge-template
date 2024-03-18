@@ -10,7 +10,6 @@ export const useAppWrapper = () => {
   const { hookCacheContextState, hookCacheContextDispatcher } = useCacheContext();
 
   const freshUser = async (session: string) => {
-    console.log('Refreash');
     const { status, data } = await useFetch({
       method: 'GET',
       path: `/auth/refresh/${session}`,
