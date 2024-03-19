@@ -3,13 +3,13 @@ import request from 'supertest';
 import {
   describe, it, expect, beforeAll, jest,
 } from '@jest/globals';
-import server from '../../../src/Main/server';
-import { VALIDATION_MESSAGES } from '../../../src/Utils';
+import server from '../../../../src/Main/server';
+import { VALIDATION_MESSAGES } from '../../../../src/Utils';
 
 describe('Sign up routes', () => {
   const signUpRepositorySpy = jest.fn();
 
-  jest.mock('../../../src/Modules/Sign-up/Infra/DB/Prisma/repository', () => ({
+  jest.mock('../../../../src/Modules/Sign-up/Infra/DB/Prisma/repository', () => ({
     SignUpPrismaRepository: jest.fn().mockReturnValue({
       signUp: signUpRepositorySpy,
     }),

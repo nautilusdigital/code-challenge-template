@@ -18,7 +18,7 @@ jest.mock('bcrypt', () => ({
 }));
 
 jest.mock('jsonwebtoken', () => ({
-  sign: jwtSpy
+  sign: jwtSpy,
 }));
 
 jest.mock('../../../../src/Modules/Auth/Auth/Infra/DB/Prisma/repository', () => ({
