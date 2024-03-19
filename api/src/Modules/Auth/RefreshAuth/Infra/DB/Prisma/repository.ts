@@ -26,7 +26,6 @@ export class RefreshAuthPrismaRepository extends PrismaRepository implements IRe
         id: true,
         firstName: true,
         lastName: true,
-        password: true,
         email: true,
         createdAt: true,
         userType: {
@@ -40,7 +39,6 @@ export class RefreshAuthPrismaRepository extends PrismaRepository implements IRe
     return {
       id: result.id,
       email: result.email,
-      password: result.password,
       userType: result.userType.name,
       name: `${result.firstName} ${result.lastName}`,
       createdAt: result.createdAt,

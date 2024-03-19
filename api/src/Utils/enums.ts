@@ -6,6 +6,7 @@ export const ERROR_CODES = {
   },
   BAD_REQUEST: {
     LOGIN: 'E00200',
+    REFRESH_USER: 'E00300',
   },
   DATABASE: 'E02000',
   VALIDATION: 'E04000',
@@ -15,6 +16,7 @@ export const ERROR_CODES = {
 export const ERROR_MESSAGES = {
   BAD_REQUEST: {
     LOGIN: 'Invalid email or password',
+    REFRESH_USER: 'Invalid token',
   },
   NOT_FOUND: {
     USER: 'User not found',

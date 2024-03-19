@@ -5,7 +5,6 @@ export type RefreshAuthRepositoryInputType = {
 export type RefreshAuthRepositoryOutputType = {
   id: string
   email: string
-  password: string
   name: string
   userType: string
   createdAt: string

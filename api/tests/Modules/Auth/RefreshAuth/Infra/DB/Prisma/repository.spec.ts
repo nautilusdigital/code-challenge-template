@@ -1,24 +1,19 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import {
-  describe, it, expect, beforeAll, jest,
-} from '@jest/globals';
-import { AuthPrismaRepository } from '../../../../../../src/Modules/Auth/Auth/Infra/DB/Prisma';
-import { MockContext, Context, createMockContext } from '../../../../../mocks/prismaDependencyInjection';
+import { RefreshAuthPrismaRepository } from '../../../../../../../src/Modules/Auth/RefreshAuth/Infra/DB/Prisma';
+import { MockContext, Context, createMockContext } from '../../../../../../mocks/prismaDependencyInjection';
 
-describe('Auth Respository', () => {
-  let sut: AuthPrismaRepository;
+describe('FreshAuth', () => {
+  let sut: RefreshAuthPrismaRepository;
 
   let mockCtx: MockContext;
   let ctx: Context;
 
-  const inputData = { email: 'any-email' };
+  const inputData = { id: 'any-id' };
   const date = new Date();
 
   const returnedData = {
     id: 'any_id',
     firstName: 'any-first-name',
     lastName: 'any-last-name',
-    password: 'any-password',
     email: 'any-email',
     createdAt: date,
     userType: {
@@ -29,7 +24,6 @@ describe('Auth Respository', () => {
   const outputData = {
     id: 'any_id',
     name: 'any-first-name any-last-name',
-    password: 'any-password',
     email: 'any-email',
     userType: 'any-user-time',
     createdAt: date,
@@ -39,21 +33,22 @@ describe('Auth Respository', () => {
     mockCtx = createMockContext();
     ctx = mockCtx as unknown as Context;
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     mockCtx.prisma.user.findFirst.mockResolvedValue(returnedData as any);
   });
 
   beforeEach(() => {
-    sut = new AuthPrismaRepository({ client: ctx.prisma });
+    sut = new RefreshAuthPrismaRepository({ client: ctx.prisma });
   });
 
   it('should be an instance of PrismaRepository', () => {
-    expect(sut).toBeInstanceOf(AuthPrismaRepository);
+    expect(sut).toBeInstanceOf(RefreshAuthPrismaRepository);
   });
 
   it('should call execute method with correct parameters', async () => {
     const spy = jest.spyOn(sut, 'execute');
 
-    await sut.authenticate(inputData);
+    await sut.getOneById(inputData);
 
     expect(spy).toHaveBeenCalledWith(mockCtx.prisma.user.findFirst, {
       where: {
@@ -63,7 +58,6 @@ describe('Auth Respository', () => {
         id: true,
         firstName: true,
         lastName: true,
-        password: true,
         email: true,
         createdAt: true,
         userType: {
@@ -78,11 +72,7 @@ describe('Auth Respository', () => {
   });
 
   it('should return correct data', async () => {
-    const resultOne = await sut.authenticate(inputData);
+    const resultOne = await sut.getOneById(inputData);
     expect(resultOne).toEqual(outputData);
-
-    mockCtx.prisma.user.findFirst.mockResolvedValueOnce(null);
-    const resultTwo = await sut.authenticate(outputData);
-    expect(resultTwo).toBeUndefined();
   });
 });
