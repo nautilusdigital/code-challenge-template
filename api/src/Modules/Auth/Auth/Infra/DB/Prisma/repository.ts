@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 
-import { PrismaRepository } from '../../../../../Common/Infra/DB/Prisma';
+import { PrismaRepository } from '../../../../../../Common/Infra/DB/Prisma';
 import { AuthRepositoryInputType, AuthRepositoryOutputType, IAuthRepository } from '../../../Domain/Interfaces';
 
 type AuthPrismaRepositoryConstructorType = {

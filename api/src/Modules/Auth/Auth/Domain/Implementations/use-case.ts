@@ -1,11 +1,11 @@
 import { compare } from 'bcrypt';
 import { sign } from 'jsonwebtoken';
 
-import { BadRequestError } from '../../../../Common/Domain/Errors';
+import { BadRequestError } from '../../../../../Common/Domain/Errors';
 import { AuthUseCaseInputType, AuthUseCaseOutputType, IAuthUseCase } from '../../Application/Interfaces';
 import { IAuthRepository } from '../Interfaces';
-import { envVariables } from '../../../../Config';
-import { ERROR_CODES, ERROR_MESSAGES } from '../../../../Utils';
+import { envVariables } from '../../../../../Config';
+import { ERROR_CODES, ERROR_MESSAGES } from '../../../../../Utils';
 
 type AuthUseCaseConstructorType = {
   repository: IAuthRepository;

@@ -21,6 +21,7 @@ export const ERROR_MESSAGES = {
     USER_TYPE: 'User type not found',
   },
   TOKEN_VALIDATION: {
+    INVALID_TOKEN: 'Invalid token',
     INVALID_TOKEN_TYPE: 'Invalid token type',
     INVALID_TOKEN_FORMAT: 'Invalid token format',
   },

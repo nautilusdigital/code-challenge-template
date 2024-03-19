@@ -1,5 +1,5 @@
-import { Controller } from '../../../../Common/Application/Controller/Implementations';
-import { IValidator } from '../../../../Common/Application/Controller/Interfaces';
+import { Controller } from '../../../../../Common/Application/Controller/Implementations';
+import { IValidator } from '../../../../../Common/Application/Controller/Interfaces';
 import { IAuthUseCase } from '../Interfaces';
 
 type AuthControllerConstructorType = {

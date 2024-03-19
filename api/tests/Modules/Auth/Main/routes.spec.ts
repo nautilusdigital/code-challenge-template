@@ -8,19 +8,34 @@ import {
 const authRepositorySpy = jest.fn();
 const bcryptSpy = jest.fn();
 const jwtSpy = jest.fn();
+const tokenValidatarSpy = jest.fn();
 
 import server from '../../../../src/Main/server';
-import { ERROR_CODES, VALIDATION_MESSAGES } from '../../../../src/Utils';
+import { ERROR_CODES, ERROR_MESSAGES, VALIDATION_MESSAGES } from '../../../../src/Utils';
 
 jest.mock('bcrypt', () => ({
   compare: bcryptSpy,
 }));
+
 jest.mock('jsonwebtoken', () => ({
   sign: jwtSpy
 }));
-jest.mock('../../../../src/Modules/Auth/Infra/DB/Prisma/repository', () => ({
+
+jest.mock('../../../../src/Modules/Auth/Auth/Infra/DB/Prisma/repository', () => ({
   AuthPrismaRepository: jest.fn().mockReturnValue({
     authenticate: authRepositorySpy,
+  }),
+}));
+
+jest.mock('../../../../src/Common/Modules/Auth/Domain/Implementations/use-case', () => ({
+  AuthMiddlewareUseCase: jest.fn().mockReturnValue({
+    execute: tokenValidatarSpy
+  })
+}));
+
+jest.mock('../../../../src/Modules/Auth/RefreshAuth/Infra/DB/Prisma/repository', () => ({
+  RefreshAuthPrismaRepository: jest.fn().mockReturnValue({
+    getOneById: authRepositorySpy,
   }),
 }));
 
@@ -52,7 +67,7 @@ describe('Auth routes', () => {
       authRepositorySpy.mockResolvedValue(authRepositoryData as never);
     });
 
-    it('should return 204 with empty body', async () => {
+    it('should return 200 with user object and token', async () => {
       const { status, body } = await request(server)
         .post(route)
         .send(authData);
@@ -205,6 +220,62 @@ describe('Auth routes', () => {
           ],
         });
       }
+    });
+  });
+
+  describe('POST /v1/auth/refresh', () => {
+    const route = '/v1/auth/refresh';
+
+    const authRepositoryData = {
+      id: 'any-id',
+      email: 'any@email.com',
+      name: 'any-name',
+      userType: 'any-user-type',
+      createdAt: '2024-01-16'
+    };
+
+    const accessToken = 'any_access_token';
+
+    const validationErrorName = ERROR_MESSAGES.TOKEN_VALIDATION.INVALID_TOKEN;
+    const validationErrorCode = ERROR_CODES.TOKEN_VALIDATION;
+
+    beforeAll(() => {
+      jwtSpy.mockReturnValue(accessToken);
+      tokenValidatarSpy.mockReturnValue({ userId: authRepositoryData.id } as never);
+    });
+
+    it('should return 200 with user object and token', async () => {
+      authRepositorySpy.mockResolvedValue(authRepositoryData as never);
+      const { status, body } = await request(server)
+        .post(route)
+        .set('Authorization', `Bearer ${accessToken}`);
+
+      expect(status).toBe(200);
+      expect(body).toEqual({
+        user: {
+          id: authRepositoryData.id,
+          email: authRepositoryData.email,
+          name: authRepositoryData.name,
+          userType: authRepositoryData.userType,
+          createdAt: authRepositoryData.createdAt,
+        },
+        tokens: {
+          accessToken,
+        }
+      });
+    });
+
+    it('should return 500 if using a bad token', async () => {
+      tokenValidatarSpy.mockRejectedValue({ validationErrorName, validationErrorCode } as never);
+      const { status, body } = await request(server)
+        .post(route)
+        .set('Authorization', `Bearer ${accessToken}`);
+
+      expect(status).toBe(500);
+      expect(body).toEqual({
+        validationErrorName: ERROR_MESSAGES.TOKEN_VALIDATION.INVALID_TOKEN,
+        validationErrorCode: ERROR_CODES.TOKEN_VALIDATION,
+      });
     });
   });
 });
