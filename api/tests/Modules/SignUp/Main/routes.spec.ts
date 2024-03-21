@@ -10,7 +10,7 @@ describe('Sign up routes', () => {
   const signUpRepositorySpy = jest.fn();
 
   jest.mock('../../../../src/Modules/Sign-up/Infra/DB/Prisma/repository', () => ({
-    SignUpPrismaRepository: jest.fn().mockReturnValue({
+    SignUpRepository: jest.fn().mockReturnValue({
       signUp: signUpRepositorySpy,
     }),
   }));

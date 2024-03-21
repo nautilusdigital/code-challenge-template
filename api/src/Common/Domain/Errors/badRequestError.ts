@@ -1,4 +1,4 @@
-import { AppError } from './app-error';
+import { AppError } from './appError';
 
 /**
  * `BadRequestError` extends from `AppError` and represents an error specifically for bad requests.

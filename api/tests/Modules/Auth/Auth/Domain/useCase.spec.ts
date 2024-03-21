@@ -6,7 +6,7 @@ import { IAuthRepository } from '../../../../../src/Modules/Auth/Auth/Domain/Int
 import { BadRequestError } from '../../../../../src/Common/Domain/Errors';
 import { ERROR_CODES, ERROR_MESSAGES } from '../../../../../src/Utils';
 
-jest.mock('../../../../../src/Common/Domain/Errors/bad-request-error');
+jest.mock('../../../../../src/Common/Domain/Errors/badRequestError');
 
 describe('AuthUseCase', () => {
   let authRepository: MockProxy<IAuthRepository>;

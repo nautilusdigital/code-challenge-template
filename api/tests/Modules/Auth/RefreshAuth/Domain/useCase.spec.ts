@@ -3,7 +3,7 @@ import jsonwebtoken from 'jsonwebtoken';
 import { IRefreshAuthRepository } from '../../../../../src/Modules/Auth/RefreshAuth/Domain/Interfaces';
 import { AuthRefreshUseCase } from '../../../../../src/Modules/Auth/RefreshAuth/Domain/Implementations';
 
-jest.mock('../../../../../src/Common/Domain/Errors/bad-request-error');
+jest.mock('../../../../../src/Common/Domain/Errors/badRequestError');
 
 describe('RefreshAuthUseCase', () => {
   let refreshAuthRepository: MockProxy<IRefreshAuthRepository>;

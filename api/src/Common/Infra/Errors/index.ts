@@ -1,1 +1,1 @@
-export * from './database-error';
+export * from './databaseError';

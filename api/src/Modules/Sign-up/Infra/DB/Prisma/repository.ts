@@ -6,14 +6,14 @@ import { ISignUpRepository, SignUpOperationType } from '../../../Domain/Interfac
 import { NotFoundError } from '../../../../../Common/Domain/Errors';
 import { ERROR_CODES, ERROR_MESSAGES } from '../../../../../Utils';
 
-type SignUpPrismaRepositoryConstructorType = {
+type SignUpRepositoryConstructorType = {
   client: PrismaClient;
 }
 
-export class SignUpPrismaRepository extends PrismaRepository implements ISignUpRepository {
+export class SignUpRepository extends PrismaRepository implements ISignUpRepository {
   private readonly client: PrismaClient;
 
-  constructor({ client }: SignUpPrismaRepositoryConstructorType) {
+  constructor({ client }: SignUpRepositoryConstructorType) {
     super();
 
     this.client = client;
