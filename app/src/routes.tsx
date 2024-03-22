@@ -1,12 +1,13 @@
 import React from 'react';
 import {
-  Route, Outlet, createBrowserRouter, createRoutesFromElements, RouterProvider,
+  Route, Outlet, createBrowserRouter, createRoutesFromElements, RouterProvider, Navigate,
 } from 'react-router-dom';
 import { CacheProvider } from './context';
 import {
   Dashboard, Login, SignUp,
 } from './pages';
 import { Example } from './pages/Example';
+import { PATH } from './utils/Path';
 
 const Layout = () => (
   <CacheProvider>
@@ -18,26 +19,28 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route element={<Layout />}>
       <Route
-        path='/'
+        path={PATH.get('DASHBOARD')?.URL}
         element={<Dashboard />}
       />
       <Route
-        path='/example'
+        path={PATH.get('EXAMPLE')?.URL}
         element={<Example />}
       />
 
       {/* Unprotected Routes */}
       <Route
-        path='/login'
+        path={PATH.get('LOGIN')?.URL}
+
         element={<Login />}
       />
       <Route
-        path='/signup'
+        path={PATH.get('SIGN_UP')?.URL}
+
         element={<SignUp />}
       />
       <Route
         path='*'
-        element={<Login />} // Redirect to 404 or Login page
+        element={<Navigate to={PATH.get('LOGIN')?.URL || '/'} />} // Redirect to 404 or Login page
       />
     </Route>,
   ),
