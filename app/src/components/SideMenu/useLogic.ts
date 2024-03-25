@@ -1,18 +1,20 @@
 import { useNavigate } from 'react-router-dom';
 import { ENVIRONMENT } from '../../config/environment';
-import { useCacheContext } from '../../hooks/useCacheContext';
+import { useAuthContext } from '../../hooks/useAuthContext';
+import { useCookie } from '../../hooks';
 
 export const useSideMenu = () => {
   const navigate = useNavigate();
-  const { hookCacheContextState } = useCacheContext();
+  const { hookAuthContextState } = useAuthContext();
+  const cookieUtils = useCookie();
 
   const handleLogout = () => {
-    document.cookie = `${ENVIRONMENT.APP.SESSION_COOKIE_NAME}=; expires=Thu, 18 Dec 2013 12:00:00 UTC; path=/`;
+    cookieUtils.deleteCookie(ENVIRONMENT.APP.SESSION_COOKIE_NAME);
     navigate('/login');
   };
 
   return {
     handleLogout,
-    hookCacheContextState,
+    hookAuthContextState,
   };
 };

@@ -1,19 +1,10 @@
 import React, {
   createContext,
-  useEffect,
   useMemo,
   useReducer,
 } from 'react';
-import { CacheContextActionType, cacheInitialState, useCacheReducer } from '../reducer';
-
-type CacheContextPropTypes = {
-  state: typeof cacheInitialState
-  dispatcherHandler: React.Dispatch<CacheContextActionType>
-}
-
-type CacheProviderPropTypes = {
-  children: React.ReactNode
-}
+import { cacheInitialState, useCacheReducer } from '../reducer';
+import { CacheContextPropTypes, CacheProviderPropTypes } from './type';
 
 export const CacheContext = createContext<Readonly<CacheContextPropTypes>>({} as CacheContextPropTypes);
 

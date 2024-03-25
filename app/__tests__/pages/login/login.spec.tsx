@@ -5,7 +5,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { useLogin } from '../../../src/pages/Login/useLogic';
 import { validationLogin } from '../../../src/pages/Login/validation';
-import { useFetch, useCacheContext } from '../../../src/hooks';
+import { useFetch, useAuthContext } from '../../../src/hooks';
 import { LOGIN } from '../../../src/pages/Login/const';
 
 jest.mock('react-router-dom', () => ({
@@ -21,8 +21,8 @@ jest.mock('react', () => ({
 jest.mock('../../../src/pages/Login/validation');
 jest.mock('../../../src/hooks/useFetch');
 
-jest.mock('../../../src/hooks/useCacheContext', () => ({
-  useCacheContext: jest.fn(),
+jest.mock('../../../src/hooks/useAuthContext', () => ({
+  useAuthContext: jest.fn(),
 }));
 
 const mockData = {
@@ -51,7 +51,7 @@ describe('useLogic hook tests', () => {
     useFetch.mockResolvedValue(mockData);
 
     const mockDispatcher = jest.fn();
-    useCacheContext.mockReturnValue({ hookCacheContextDispatcher: mockDispatcher });
+    useAuthContext.mockReturnValue({ hookAuthContextDispatcher: mockDispatcher });
   });
 
   afterEach(() => {
@@ -191,7 +191,7 @@ describe('useLogic hook tests', () => {
     useFetch.mockResolvedValue(mockData);
 
     const mockDispatcher = jest.fn();
-    useCacheContext.mockReturnValue({ hookCacheContextDispatcher: mockDispatcher });
+    useAuthContext.mockReturnValue({ hookAuthContextDispatcher: mockDispatcher });
 
     const { result } = renderHook(() => useLogin());
 

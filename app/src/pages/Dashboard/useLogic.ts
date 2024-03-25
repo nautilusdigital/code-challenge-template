@@ -1,9 +1,9 @@
-import { useCacheContext } from '../../hooks/useCacheContext';
+import { useAuthContext } from '../../hooks/useAuthContext';
 
 export const useDashboard = () => {
-  const { hookCacheContextState } = useCacheContext();
+  const { hookAuthContextState } = useAuthContext();
 
   return {
-    hookCacheContextState,
+    hookAuthContextState,
   };
 };

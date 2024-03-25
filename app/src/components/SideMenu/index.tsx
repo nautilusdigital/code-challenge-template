@@ -52,9 +52,9 @@ export const SideMenu = () => {
         </Button>
         <User
           size="large"
-          firstName={hook.hookCacheContextState.user.name.split(' ')[0] || ''}
-          lastName={hook.hookCacheContextState.user.name.split(' ')[1] || ''}
-          description={hook.hookCacheContextState.user.email || ''}
+          firstName={hook.hookAuthContextState.user.name.split(' ')[0] || ''}
+          lastName={hook.hookAuthContextState.user.name.split(' ')[1] || ''}
+          description={hook.hookAuthContextState.user.email || ''}
           additionalClasses={{
             wrapper: ['py-2'],
           }}
