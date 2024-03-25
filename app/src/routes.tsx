@@ -7,7 +7,7 @@ import {
   Dashboard, Login, SignUp,
 } from './pages';
 import { Example } from './pages/Example';
-import { PATH } from './utils/Path';
+import { PATH } from './utils/path';
 
 const Layout = () => (
   <CacheProvider>

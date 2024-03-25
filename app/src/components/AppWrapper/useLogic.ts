@@ -4,6 +4,7 @@ import { ENVIRONMENT } from '../../config/environment';
 import {
   useAuth, useAuthContext, useCookie, useFetch,
 } from '../../hooks';
+import { PATH } from '../../utils';
 
 export const useAppWrapper = () => {
   const navigate = useNavigate();
@@ -25,12 +26,12 @@ export const useAppWrapper = () => {
       return;
     }
 
-    navigate('/');
+    navigate(PATH.get('LOGIN')?.URL || '');
   };
 
   const validateUserSession = () => {
     const session = cookieUtils.getCookie(ENVIRONMENT.APP.SESSION_COOKIE_NAME);
-    if (!session.exist) navigate('/login');
+    if (!session.exist) navigate(PATH.get('LOGIN')?.URL || '');
 
     if (!hookAuthContextState.user.id) freshUser(session.value);
   };

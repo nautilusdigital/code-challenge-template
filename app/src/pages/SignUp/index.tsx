@@ -3,6 +3,7 @@ import { Button } from 'awesome-gcl';
 import { useSignup } from './useLogic';
 import { Link, SignupForm } from '../../components';
 import { SIGN_UP } from './const';
+import { PATH } from '../../utils';
 
 export const SignUp = () => {
   const hook = useSignup();
@@ -11,7 +12,7 @@ export const SignUp = () => {
     <div className="w-full h-screen flex justify-center items-center">
       <div className="w-[470px] flex flex-col justify-center items-start">
         <h1 className="font-bold text-[32px] mb-[60px]">
-          {SIGN_UP.TITLE}
+          {PATH.get('SIGN_UP')?.TITLE}
         </h1>
 
         {hook.errors.default && (

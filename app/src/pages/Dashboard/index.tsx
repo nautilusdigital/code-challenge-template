@@ -1,8 +1,7 @@
 import React from 'react';
 import { AppWrapper, Link } from '../../components';
-import { DASHBOARD } from './const';
 import { useDashboard } from './useLogic';
-import { PATH } from '../../utils/Path';
+import { PATH } from '../../utils/path';
 
 export const Dashboard = () => {
   const hook = useDashboard();

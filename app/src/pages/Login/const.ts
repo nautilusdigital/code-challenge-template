@@ -1,5 +1,4 @@
 export const LOGIN = {
-  TITLE: 'Log In',
   INPUTS: {
     EMAIL: {
       LABEL: 'Email',

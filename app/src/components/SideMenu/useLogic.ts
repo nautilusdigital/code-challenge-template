@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { ENVIRONMENT } from '../../config/environment';
 import { useAuthContext } from '../../hooks/useAuthContext';
 import { useCookie } from '../../hooks';
+import { PATH } from '../../utils';
 
 export const useSideMenu = () => {
   const navigate = useNavigate();
@@ -10,7 +11,7 @@ export const useSideMenu = () => {
 
   const handleLogout = () => {
     cookieUtils.deleteCookie(ENVIRONMENT.APP.SESSION_COOKIE_NAME);
-    navigate('/login');
+    navigate(PATH.get('LOGIN')?.URL || '');
   };
 
   return {

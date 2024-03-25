@@ -1,10 +1,11 @@
-import { CacheContextActionType, cacheInitialState } from '../reducer';
+import { AuthContextActionType } from '../reducer';
+import { authInitialState } from './const';
 
-export type CacheContextPropTypes = {
-  state: typeof cacheInitialState
-  dispatcherHandler: React.Dispatch<CacheContextActionType>
+export type AuthCacheContextPropTypes = {
+  state: typeof authInitialState
+  dispatcherHandler: React.Dispatch<AuthContextActionType>
 }
 
-export type CacheProviderPropTypes = {
+export type AuthCacheProviderPropTypes = {
   children: React.ReactNode
 }

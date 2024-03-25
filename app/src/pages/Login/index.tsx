@@ -3,7 +3,7 @@ import { Button, Input } from 'awesome-gcl';
 import { useLogin } from './useLogic';
 import { LOGIN } from './const';
 import { Link } from '../../components';
-import { PATH } from '../../utils/Path';
+import { PATH } from '../../utils/path';
 
 export const Login = () => {
   const hook = useLogin();

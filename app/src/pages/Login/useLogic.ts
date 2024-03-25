@@ -6,7 +6,7 @@ import { formatYupError } from '../../utils';
 import { INIT_LOGIN_ACCOUNT, LOGIN } from './const';
 import { useLoginReducer } from './reducer';
 import { useAuth } from '../../hooks/useAuth';
-import { PATH } from '../../utils/Path';
+import { PATH } from '../../utils/path';
 
 export const useLogin = () => {
   const navigate = useNavigate();

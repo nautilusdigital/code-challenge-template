@@ -3,18 +3,19 @@ import React, {
   useMemo,
   useReducer,
 } from 'react';
-import { cacheInitialState, useCacheReducer } from '../reducer';
-import { CacheContextPropTypes, CacheProviderPropTypes } from './type';
+import { useAuthCacheReducer } from '../reducer';
+import { AuthCacheContextPropTypes, AuthCacheProviderPropTypes } from './type';
+import { authInitialState } from './const';
 
-export const CacheContext = createContext<Readonly<CacheContextPropTypes>>({} as CacheContextPropTypes);
+export const CacheContext = createContext<Readonly<AuthCacheContextPropTypes>>({} as AuthCacheContextPropTypes);
 
-export const CacheProvider = ({ children }: Readonly<CacheProviderPropTypes>) => {
-  const [cacheState, cacheDispatcher] = useReducer(useCacheReducer, cacheInitialState);
+export const CacheProvider = ({ children }: Readonly<AuthCacheProviderPropTypes>) => {
+  const [authCacheState, authCacheDispatcher] = useReducer(useAuthCacheReducer, authInitialState);
 
   const stateMemoed = useMemo(() => ({
-    state: cacheState,
-    dispatcherHandler: cacheDispatcher,
-  }), [cacheState]);
+    state: authCacheState,
+    dispatcherHandler: authCacheDispatcher,
+  }), [authCacheState]);
 
   return (
     <CacheContext.Provider value={stateMemoed}>

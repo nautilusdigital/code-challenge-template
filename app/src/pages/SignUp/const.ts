@@ -1,5 +1,4 @@
 export const SIGN_UP = {
-  TITLE: 'Sign Up',
   BUTTON: {
     CREATE: 'Create Accout',
   },

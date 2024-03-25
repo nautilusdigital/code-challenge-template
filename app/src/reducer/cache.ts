@@ -1,20 +1,6 @@
-export const cacheInitialState = {
-  user: {
-    id: '',
-    email: '',
-    name: '',
-    userType: '',
-    createdAt: '',
-  },
-  tokens: {
-    accessToken: '',
-  },
-};
+import { AuthContextActionType } from './types';
 
-export type CacheContextActionType = { type: 'updateUser', data: typeof cacheInitialState['user'] }
-| { type: 'updateToken', data: typeof cacheInitialState['tokens'] }
-
-export const useCacheReducer = (state: any, { type, data }: CacheContextActionType) => {
+export const useAuthCacheReducer = (state: any, { type, data }: AuthContextActionType) => {
   switch (type) {
     case 'updateUser':
       return {
