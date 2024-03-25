@@ -31,9 +31,7 @@ export const useAppWrapper = () => {
       return;
     }
 
-    navigate('/', {
-      replace: true,
-    });
+    navigate('/');
   };
 
   const validateUserSession = () => {

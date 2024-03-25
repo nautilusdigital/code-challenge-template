@@ -3,6 +3,7 @@ import { Button, Input } from 'awesome-gcl';
 import { useLogin } from './useLogic';
 import { LOGIN } from './const';
 import { Link } from '../../components';
+import { PATH } from '../../utils/Path';
 
 export const Login = () => {
   const hook = useLogin();
@@ -10,7 +11,7 @@ export const Login = () => {
   return (
     <div className="w-full h-screen flex justify-center items-center">
       <div className="w-[470px] flex flex-col justify-center items-start">
-        <h1 className="font-bold text-[32px] mb-[60px]">{LOGIN.TITLE}</h1>
+        <h1 className="font-bold text-[32px] mb-[60px]">{PATH.get('LOGIN')?.TITLE}</h1>
         {hook.errors.default && (
           <div
             className='border-2 border-solid rounded-lg border-support-alert-50 bg-white-100 text-support-alert-50 p-4 mb-8 w-full text-center'
@@ -22,9 +23,9 @@ export const Login = () => {
           size='large'
           type='email'
           label={LOGIN.INPUTS.EMAIL.LABEL}
-          value={hook.email}
+          value={hook.loginAccountState.email}
           placeholder={LOGIN.INPUTS.EMAIL.PLACEHOLDER}
-          onChange={(event) => hook.emailHandler(event)}
+          onChange={(event) => hook.loginAccountDispatcher({ email: event.target.value })}
           caption={hook.errors.email}
           additionalClasses={{
             inputWrapper: ['w-full'],
@@ -36,9 +37,9 @@ export const Login = () => {
           size='large'
           type='password'
           label={LOGIN.INPUTS.PASSWORD.LABEL}
-          value={hook.password}
+          value={hook.loginAccountState.password}
           placeholder={LOGIN.INPUTS.PASSWORD.PLACEHOLDER}
-          onChange={(event) => hook.passwordHandler(event)}
+          onChange={(event) => hook.loginAccountDispatcher({ password: event.target.value })}
           caption={hook.errors.password}
           onKeyDown={(event: any) => {
             if (event.key === 'Enter') {

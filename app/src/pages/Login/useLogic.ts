@@ -1,39 +1,31 @@
-import { useEffect, useState } from 'react';
+import { useReducer, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ENVIRONMENT } from '../../config/environment';
 import { validationLogin } from './validation';
 import { useFetch } from '../../hooks';
 import { useCacheContext } from '../../hooks/useCacheContext';
 import { formatYupError } from '../../utils';
-import { LOGIN } from './const';
+import { INIT_LOGIN_ACCOUNT, LOGIN } from './const';
+import { useLoginReducer } from './reducer';
 
 export const useLogin = () => {
   const navigate = useNavigate();
   const { hookCacheContextDispatcher } = useCacheContext();
 
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
+  const [loginAccountState, loginAccountDispatcher] = useReducer(useLoginReducer, INIT_LOGIN_ACCOUNT);
+
   const [errors, setErrors] = useState<Record<string, string>>({});
 
-  const emailHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(event.target.value);
-  };
-
-  const passwordHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(event.target.value);
-  };
+  const updateFormHandler = (data: Record<string, any>) => loginAccountDispatcher({ data });
 
   const handleLogin = async () => {
     try {
-      await validationLogin({ email, password });
+      await validationLogin(loginAccountState);
 
       const { status, data } = await useFetch({
         method: 'POST',
         path: '/auth',
-        body: {
-          email,
-          password,
-        },
+        body: loginAccountState,
       });
 
       if (status !== 200) {
@@ -53,9 +45,7 @@ export const useLogin = () => {
           data: { ...data.tokens },
         });
 
-        navigate('/', {
-          replace: true,
-        });
+        navigate('/');
       }
     } catch (error: any) {
       if (error.inner) {
@@ -65,23 +55,9 @@ export const useLogin = () => {
     }
   };
 
-  useEffect(() => {
-    const updateError = { ...errors };
-    delete updateError.email;
-    setErrors(updateError);
-  }, [email]);
-
-  useEffect(() => {
-    const updateError = { ...errors };
-    delete updateError.password;
-    setErrors(updateError);
-  }, [password]);
-
   return {
-    email,
-    emailHandler,
-    password,
-    passwordHandler,
+    loginAccountState,
+    loginAccountDispatcher: updateFormHandler,
     handleLogin,
 
     errors,

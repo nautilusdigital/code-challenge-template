@@ -1,6 +1,6 @@
 import homeIcon from '../assets/svg/homeIcon.svg';
 import logOutIcon from '../assets/svg/logOutIcon.svg';
-import companyLogo from '../assets/images/cctech-logo-black.webp';
+import companyLogo from '../assets/images/cctechLogoBlack.webp';
 
 export const IMAGES = new Map();
 export const ICONS = new Map();

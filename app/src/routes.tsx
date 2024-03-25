@@ -40,7 +40,7 @@ const router = createBrowserRouter(
       />
       <Route
         path='*'
-        element={<Navigate to={PATH.get('LOGIN')?.URL || '/'} />} // Redirect to 404 or Login page
+        element={<Navigate to={PATH.get('LOGIN')?.URL || ''} />} // Redirect to 404 or Login page
       />
     </Route>,
   ),

@@ -27,3 +27,8 @@ export const LOGIN = {
     PASSWORD: 'Please enter a password',
   },
 };
+
+export const INIT_LOGIN_ACCOUNT = {
+  email: '',
+  password: '',
+};

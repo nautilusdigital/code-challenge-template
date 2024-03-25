@@ -17,22 +17,22 @@ PATH.set('DASHBOARD', {
 });
 
 PATH.set('LOGIN', {
-  URL: '/',
-  TITLE: 'User Dashboard',
+  URL: '/login',
+  TITLE: 'Log In',
   ICON: ICONS.get('HOME_ICON').SRC,
   HIDDEN: false,
 });
 
 PATH.set('SIGN_UP', {
   URL: '/signup',
-  TITLE: 'User Dashboard',
+  TITLE: 'Sign Up',
   ICON: ICONS.get('HOME_ICON').SRC,
   HIDDEN: false,
 });
 
 PATH.set('EXAMPLE', {
   URL: '/example',
-  TITLE: '',
+  TITLE: 'Example',
   ICON: ICONS.get('HOME_ICON').SRC,
   HIDDEN: false,
 });
