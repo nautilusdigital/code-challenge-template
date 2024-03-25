@@ -5,19 +5,23 @@ type UseFetchPropTypes = {
   path: string
   body?: Record<string, any>
   headers?: Record<string, any>
+  queryParams?: Record<string, string>
 }
 
 export const useFetch = async ({
-  method, path, body, headers,
+  method, path, body, headers, queryParams,
 }: UseFetchPropTypes) => {
   try {
     let newBody = body;
+    let queryString = '';
+
+    if (queryParams) queryString = `?${new URLSearchParams(queryParams).toString()}`;
 
     if (method === 'GET' || method === 'DELETE') {
       newBody = undefined;
     }
 
-    const res = await fetch(`${ENVIRONMENT.API.BASE_URL}/v1${path}`, {
+    const res = await fetch(`${ENVIRONMENT.API.BASE_URL}/v1${path}${queryString}`, {
       method,
       headers: new Headers({
         'content-type': 'application/json',
